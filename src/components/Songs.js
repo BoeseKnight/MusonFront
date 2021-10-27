@@ -17,9 +17,8 @@ export default function Songs() {
         formData.append("name", name)
         formData.append("username", username)
         formData.append("password", password)
-        fetch("http://localhost:8080/api/login", {
+        fetch("http://localhost:8080/api/myLogin", {
             method: "POST",
-            mode: "no-cors",
             body: formData
         })
         .then(response => response.json())
