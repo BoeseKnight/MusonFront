@@ -11,6 +11,7 @@ import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
+import { useHistory } from 'react-router-dom';
 // import Helmet from 'react-helmet';
 
 const Search = styled('div')(({ theme }) => ({
@@ -57,32 +58,34 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 
-export default function Login() {
-  var obj;
-    const[token, setToken]=useState()
-    const[name, setName]=useState('')
-    const[username, setUsername]=useState('')
-    const[password, setPassword]=useState('')
+export default class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    var obj;
+    this.state={name: null,username: null, password: null};
+  }
+
+  render(){
     const handleClick=(e)=>{
-        e.preventDefault() 
-        const user={name, username, password}
-        console.log(user)
-        const formData = new FormData()
-        formData.append("name", name)
-        formData.append("username", username)
-        formData.append("password", password)
-        fetch("http://localhost:8080/api/myLogin", {
-            method: "POST",
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => obj=data)
-        .then(() => setToken(obj.access_token))
-        .catch(error => console.error('Error:', error))
-      };
-      console.log(token)
+      e.preventDefault()
+      const user={name: this.state.name, username: this.state.username, password: this.state.password};
+      console.log(user);
+      const formData = new FormData();
+      formData.append("name", this.state.name);
+      formData.append("username", this.state.username);
+      formData.append("password", this.state.password);
+      fetch("http://localhost:8080/api/myLogin", {
+        method: "POST",
+        body: formData
+      })
+          .then(response => response.json())
+          .then(data =>
+          {console.log("Data is: " + data.access_token); this.props.history.push('MainPage', {
+            access_token: "Bearer " + data.access_token
+          })})
+          .catch(error => console.error('Error:', error));
+    };
     return (
-      
       <div  style={{marginTop:"100px"}}>
     <Box
       component="form"
@@ -98,17 +101,17 @@ export default function Login() {
       <div style={{marginBottom:"30px"}}>
       <TextField InputProps={{style: {
             color: "white"
-        }}}focused id="outlined-basic" label="Name" variant="outlined" sx={{width: '50ch'}} value={name} onChange={(e)=>setName(e.target.value)}/>
+        }}}focused id="outlined-basic" label="Name" variant="outlined" sx={{width: '50ch'}} value={this.state.name} onChange={(e)=>this.state.name = e.target.value}/>
       </div>
       <div style={{marginBottom:"30px"}}>
       <TextField InputProps={{style: {
             color: "white"
-        }}} focused id="outlined-basic" label="Username" variant="outlined" value={username} onChange={(e)=>setUsername(e.target.value)} sx={{width: '50ch'}}/>
+        }}} focused id="outlined-basic" label="Username" variant="outlined" value={this.state.username} onChange={(e)=>this.state.username =e.target.value} sx={{width: '50ch'}}/>
       </div>
       <div style={{marginBottom:"30px"}}>
       <TextField InputProps={{style: {
             color: "white"
-        }}}focused id="outlined-basic" label="Password" variant="outlined" value={password} sx={{width: '50ch'}} onChange={(e)=>setPassword(e.target.value)}/>
+        }}}focused id="outlined-basic" label="Password" variant="outlined" value={this.state.password} sx={{width: '50ch'}} onChange={(e)=>this.state.password =e.target.value}/>
       </div>
       <Button variant="contained" size="large" onClick={handleClick}>
           Login
@@ -117,4 +120,5 @@ export default function Login() {
     </Box>
     </div>
   );
+  }
 }
