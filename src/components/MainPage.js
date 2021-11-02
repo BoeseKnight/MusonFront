@@ -15,13 +15,14 @@ import axios from "axios";
 import {width} from "@mui/system";
 import SplitPane from "react-split-pane";
 import { Splitter } from "@progress/kendo-react-layout";
+import {Text} from 'react-native';
 import Pane from "./Pane";
 // import Helmet from 'react-helmet';
 
 export default class MainPage extends React.Component {
     constructor(props) {
         super(props);
-        this.state={token: this.props.location.state.access_token, buttonsList: []};
+        this.state={token: this.props.location.state.access_token, buttonsList: [], isChart: false, isAll: true};
         var Song = {id:0, song: "", artist: "", directory: "", genre:""};
         const headers = {'Authorization': this.state.token};
         this.boxRef = React.createRef();
@@ -41,32 +42,133 @@ export default class MainPage extends React.Component {
         }
     }
     render() {
-        //console.log(this.state.buttonsList)
-        const click = (song)=>{
+        const clickSong = (song)=>{
             console.log(song.song);
+        }
+
+        const click = ()=>{
+            console.log("click");
+        }
+
+        const artistsOnCLick = () =>{
+            this.props.history.push('Artists', {
+                access_token: this.state.token
+            })
+        }
+
+        const genresOnCLick = () =>{
+            this.props.history.push('Genres', {
+                access_token: this.state.token
+            })
+        }
+
+        const collectionOnCLick = () =>{
+            this.props.history.push('Collection', {
+                access_token: this.state.token
+            })
+        }
+
+        const chartOnClick = () =>{
+            this.setState({isChart: true, isAll: false});
+            console.log(this.state.isChart);
+        }
+
+        const allOnClick = () =>{
+            this.setState({isChart: false, isAll: true});
+            console.log(this.state.isAll);
+        }
+
+        const all=()=>{
+            if (this.state.isAll) {
+                return (
+                    <div>
+                        All
+                    </div>
+                )
+            }
+        }
+
+        const chart = () => {
+            if (this.state.isChart) {
+                return (
+                    this.state.buttonsList.map(song => {
+                        return (
+                            <div style={{justifyContent: 'left', alignItems: 'left', display: 'flex'}}>
+                                <Button style={{
+                                    whiteSpace: 'pre-line',
+                                    textAlign: 'left',
+                                    textTransform: 'none',
+                                    justifyContent: 'left',
+                                    alignItems: 'left',
+                                    color: '#bebec4',
+                                    background: '#323152',
+                                    width: 500
+                                }}
+                                        onClick={() => {
+                                            clickSong(song)
+                                        }}>
+                                    <Text>
+                                        <Text style={{color: '#bebec4', fontSize: 16}}>
+                                            {song.song.substring(4, (song.song.length - 4))}
+                                        </Text>
+                                        <Text style={{color: '#8B8B8C', fontSize: 14}}>
+                                            {"\n"}
+                                            {song.artist}
+                                        </Text>
+                                    </Text>
+                                </Button>
+                            </div>
+                        )
+                    })
+                )
+            }
         }
 
         return (
         <div>
-            <SplitPane split='vertical' minSize={500} defaultSize={500}>
-                <Pane style={{width: 300, height: 500}}>
-                    Shit
+            <SplitPane split='vertical' minSize={500} defaultSize={500} style={{background: '#303035'}}>
+                <Pane style={{width: 300, height: 500, justifyContent: 'left',
+                    alignItems: 'left',display: 'flex', whiteSpace: 'pre-line'}}>
+
+                    <div style={{justifyContent: 'left', alignItems: 'left',display: 'flex'}}>
+                        <ul style={{listStyle: 'none', padding: 0}}>
+                            <li>
+                                <button style={{width: 100, height: 30, background: '#fea900'}}
+                                        onClick={()=>{collectionOnCLick()}}>
+                                    Collection
+                                </button>
+                            </li>
+                            <li>
+                                <button style={{width: 100, height: 30, background: '#fea900'}}
+                                        onClick={()=>{artistsOnCLick()}}>
+                                    Artists
+                                </button>
+                            </li>
+                            <li>
+                                <button style={{width: 100, height: 30, background: '#fea900'}}
+                                        onClick={()=>{genresOnCLick()}}>
+                                    Genres
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
                 </Pane>
                 <SplitPane split='horizontal' minSize={500} defaultSize={100}>
-                    <Pane>
-                        Tracks
+                    <Pane style={{width: 100, height: 200}}>
+                        <div style={{justifyContent: 'left',display: 'flex'}}>
+                            <button style={{width: 100, height: 30, background: '#fea900'}}
+                            onClick={()=>{chartOnClick()}}>
+                                Chart
+                            </button>
+                            <button style={{width: 100, height: 30, background: '#fea900'}}
+                                onClick={()=>{allOnClick()}}>
+                                All
+                            </button>
+                        </div>
                     </Pane>
                     <Pane style={{width: 500, height: 500, overflowY: 'scroll'}} ref={this.boxRef}>
-                        {this.state.buttonsList.map(song=>{
-                            return(
-                                <div>
-                                    <Button
-                                        onClick = {() => {click(song)}}>
-                                        {song.song}
-                                    </Button>
-                                </div>
-                            )
-                            })}
+                        {chart()}
+                        {all()}
                     </Pane>
                 </SplitPane>
             </SplitPane>

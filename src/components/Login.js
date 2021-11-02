@@ -80,9 +80,13 @@ export default class Login extends React.Component {
       })
           .then(response => response.json())
           .then(data =>
-          {console.log("Data is: " + data.access_token); this.props.history.push('MainPage', {
-            access_token: "Bearer " + data.access_token
-          })})
+          {console.log("Data is: " + data.access_token);
+            if (data.access_token != null) {
+              this.props.history.push('MainPage', {
+                access_token: "Bearer " + data.access_token
+              })
+            }
+          })
           .catch(error => console.error('Error:', error));
     };
     return (

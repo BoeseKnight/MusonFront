@@ -3,9 +3,12 @@ import Login from "./components/Login";
 import Registration from "./components/Registration";
 import Greeting from "./components/Greeting";
 import MainPage from "./components/MainPage";
+import Artists from "./components/Artists";
+import Genres from "./components/Genres";
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 import { ReactDOM } from "react";
 import {useState} from 'react';
+import Collection from "./components/Collection";
 
 
 function App() {
@@ -18,6 +21,9 @@ function App() {
           <Route path="/registration" component={Registration} />
           <Route path="/login" component={Login} />
           <Route path="/mainpage" component={MainPage} />
+          <Route path="/artists" component={Artists} />
+          <Route path="/genres" component={Genres} />
+          <Route path="/collection" component={Collection} />
         </Switch>
       </div>
     </Router>
