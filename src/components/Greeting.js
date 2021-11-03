@@ -11,10 +11,10 @@ export default function Greeting() {
     return (
         <div style={{margin:"150px"}}>
         <h1>WELLCUM TO MUSON </h1>
-      <Button component={Link} to="/login"style={{margin:"20px"}} variant="contained" size="large" onClick={handleClick}>
+      <Button component={Link} to="/login" style={{margin:"20px"}} variant="contained" size="large" onClick={handleClick}>
           Login
         </Button>
-        <Button component={Link} to="/registration"style={{margin:"20px", width:"150px"}} variant="contained" size="large" onClick={handleClick}>
+        <Button component={Link} to="/registration" style={{margin:"20px", width:"150px"}} variant="contained" size="large" onClick={handleClick}>
           Registration
         </Button>
         </div>
