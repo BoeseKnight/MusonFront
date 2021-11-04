@@ -12,12 +12,12 @@ import InputBase from "@mui/material/InputBase";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import axios from "axios";
-import { width } from "@mui/system";
+import { borderRadius, width } from "@mui/system";
 import SplitPane from "react-split-pane";
 import { Splitter } from "@progress/kendo-react-layout";
-import { Text } from "react-native";
+import { Text, TouchableHighlight, TouchableOpacity, View } from "react-native";
 import Pane from "./Pane";
-import Link from '@mui/material/Link';
+import Link from "@mui/material/Link";
 // import Helmet from 'react-helmet';
 
 export default class MainPage extends React.Component {
@@ -49,8 +49,10 @@ export default class MainPage extends React.Component {
       this.boxRef.current.scrollIntoView();
     }
   }
+  onPressImage() {
+    alert("You tapped the button!");
+  }
   render() {
-
     const clickSong = (song) => {
       console.log(song.song);
     };
@@ -99,9 +101,10 @@ export default class MainPage extends React.Component {
           return (
             <div
               style={{
-                justifyContent: "left",
-                alignItems: "left",
+                justifyContent: "center",
+                alignItems: "center",
                 display: "flex",
+				marginLeft:"250px"
               }}
             >
               <Button
@@ -112,7 +115,7 @@ export default class MainPage extends React.Component {
                   justifyContent: "left",
                   alignItems: "left",
                   color: "#bebec4",
-                  background: "#323152",
+                  background: "#16161a",
                   width: 500,
                 }}
                 onClick={() => {
@@ -120,7 +123,7 @@ export default class MainPage extends React.Component {
                 }}
               >
                 <Text>
-                  <Text style={{ color: "#bebec4", fontSize: 16 }}>
+                  <Text style={{ color: "#D9D9D8", fontSize: 16 }}>
                     {song.song}
                   </Text>
                   <Text style={{ color: "#8B8B8C", fontSize: 14 }}>
@@ -137,94 +140,131 @@ export default class MainPage extends React.Component {
 
     return (
       <div>
-          
-        <SplitPane
-          split="vertical"
-          minSize={500}
-          defaultSize={500}
-          style={{ background: "black" }}
+        <div
+          style={{
+            height: "100%",
+            position: "fixed",
+			backgroundColor:"#010101",
+            width: "250px",
+            alignItems: "left",
+            display: "flex",
+            top: "0",
+            left: "0",
+          }}
         >
-          <Pane
+          <ul
             style={{
-              width: 300,
-              height: 500,
-              justifyContent: "left",
-              alignItems: "left",
-              display: "flex",
-              whiteSpace: "pre-line",
+              listStyleType: "none",
+              marginTop: "0px",
+              padding: "0px",
+              textAlign: "left",
             }}
           >
-            <div
-              style={{
-                justifyContent: "left",
-                alignItems: "left",
-                display: "flex",
-              }}
-            >
-              <ul style={{ listStyleType: "none", marginTop: "0px", padding: "0px", textAlign:"left" }}>
-                <li>
-                <Link style={{color: "white", fontSize:"14pt", padding: "20px" }} underline="none"
-                    component="button"
-                    onClick={() => {
-                      collectionOnCLick();
-                    }}
-                  >
-                    Collection
-                  </Link>
-                </li>
-                <li>
-                  <Link style={{color: "white", fontSize:"14pt", padding: "20px" }} underline="none"
-                    component="button"
-                    onClick={() => {
-                      artistsOnCLick();
-                    }}
-                  >
-                    Artists
-                  </Link>
-                </li>
-                <li>
-                <Link style={{color: "white", fontSize:"14pt", padding: "20px" }} underline="none"
-                    component="button"
-                    onClick={() => {
-                      genresOnCLick();
-                    }}
-                  >
-                    Genres
-                  </Link>
-                </li>
-              </ul>
+            <li>
+              <Link
+                style={{
+                  color: "white",
+                  fontSize: "14pt",
+                  margin: "20px",
+                  height: "2px",
+                }}
+                underline="none"
+                component="button"
+                onClick={() => {
+                  collectionOnCLick();
+                }}
+              >
+                <h4>Collection</h4>
+              </Link>
+            </li>
+            <li>
+              <Link
+                style={{
+                  color: "white",
+                  fontSize: "14pt",
+                  margin: "20px",
+                  height: "2px",
+                }}
+                underline="none"
+                component="button"
+                onClick={() => {
+                  artistsOnCLick();
+                }}
+              >
+                <h4>Artists</h4>
+              </Link>
+            </li>
+            <li>
+              <Link
+                style={{
+                  color: "white",
+                  fontSize: "14pt",
+                  margin: "20px",
+                  height: "2px",
+                }}
+                underline="none"
+                component="button"
+                onClick={() => {
+                  genresOnCLick();
+                }}
+              >
+                <h4>Genres</h4>
+              </Link>
+            </li>
+          </ul>
+        </div>
+        <div style={{display:"flex", marginTop:"100px"}}>
+          <div style={{ marginLeft: "250px" }}>
+            <div style={{ width: "300px", float: "left" }}>
+              <img
+                onClick={this.onPressImage}
+                alt="HTML5"
+                style={{ height: "250px" , borderRadius: "10px"}}
+                src="/images/DkG03zyV4AAFpXO.jpg"
+              />
+              <h2 style={{ margin: "0" }}>RAP</h2>
             </div>
-          </Pane>
-          <SplitPane split="horizontal" minSize={500} defaultSize={100}>
-            <Pane style={{ width: 100, height: 200 }}>
-              <div style={{ justifyContent: "left", display: "flex" }}>
-                <button
-                  style={{ width: 100, height: 30, background: "#fea900" }}
-                  onClick={() => {
-                    chartOnClick();
-                  }}
-                >
-                  Chart
-                </button>
-                <button
-                  style={{ width: 100, height: 30, background: "#fea900" }}
-                  onClick={() => {
-                    allOnClick();
-                  }}
-                >
-                  All
-                </button>
-              </div>
-            </Pane>
-            <Pane
-              style={{ width: 500, height: 500, overflowY: "scroll" }}
-              ref={this.boxRef}
-            >
-              {chart()}
-              {all()}
-            </Pane>
-          </SplitPane>
-        </SplitPane>
+            <div style={{ width: "300px", float: "left" }}>
+              <img
+                onClick={this.onPressImage}
+                alt="HTML5"
+                style={{ height: "250px", backgroundColor: "gray" , borderRadius: "10px"}}
+                src="\images\linkin-park-logo.png"
+              />
+
+              <h2 style={{ margin: "0" }}>ROCK</h2>
+            </div>
+			<div style={{ width: "300px", float: "left" }}>
+              <img
+                onClick={this.onPressImage}
+                alt="HTML5"
+                style={{ height: "250px", backgroundColor: "gray", borderRadius: "10px" }}
+                src="\images\i.jpg"
+              />
+
+              <h2 style={{ margin: "0" }}>POP</h2>
+            </div>
+            <div style={{ width: "300px", float: "left" }}>
+              <img
+                onClick={this.onPressImage}
+                alt="HTML5"
+                style={{ width: "250px", borderRadius: "10px" }}
+                src="\images\pic.jpg"
+              />
+              <h2 style={{ margin: "0" }}>RUSSIAN ROCK</h2>
+            </div>
+          </div>
+        </div>
+        <div style={{display:"flex", marginLeft:"250px", justifyContent:"center", marginTop:"50px"}}>
+		<Button variant="contained" size="large" onClick={chartOnClick} style={{width:"200px", backgroundColor:"#7f5af0", padding: 0}}>
+          <h3>Chart</h3>
+        </Button>
+        </div>
+		<div >
+        {/* {chart()}
+              {all()} */}
+			  {chart()}
+			  </div>
       </div>
     );
   }
