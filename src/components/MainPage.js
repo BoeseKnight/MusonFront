@@ -239,7 +239,7 @@ export default class MainPage extends React.Component {
                 onClick={this.onPressImage}
                 alt="HTML5"
                 style={{ height: "250px", backgroundColor: "gray", borderRadius: "10px" }}
-                src="\images\i.jpg"
+                src="\images\hehe.jpg"
               />
 
               <h2 style={{ margin: "0" }}>POP</h2>

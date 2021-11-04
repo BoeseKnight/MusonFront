@@ -5,11 +5,11 @@ import SplitPane from "react-split-pane";
 import Pane from "./Pane";
 import Link from "@mui/material/Link";
 
-export default class Genres extends React.Component {
+export default class ArtistPage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {token: this.props.location.state.access_token, genres: []};
-        fetch("http://localhost:8080/api/getAllGenres", {
+        this.state = {token: this.props.location.state.access_token, artistName: this.props.location.state.artist_name, songs: []};
+        fetch("http://localhost:8080/api/getArtistsSongs?artist=" + this.state.artistName, {
             method: "GET",
             headers: {
                 'Authorization' : this.state.token
@@ -18,10 +18,7 @@ export default class Genres extends React.Component {
             .then(response => response.json())
             .then(data =>
             {
-                console.log("Data is: " + data);
-                //this.state.genres.push(genre);
-                this.setState({genres: data})
-                console.log("State is: " + this.state.genres);
+                this.setState({songs: data})
             })
             .catch(error => console.error('Error:', error));
     }
@@ -30,6 +27,10 @@ export default class Genres extends React.Component {
             this.props.history.push("Artists", {
                 access_token: this.state.token,
             });
+        };
+
+        const clickSong = (song) => {
+            console.log(song.song);
         };
 
         const genresOnCLick = () => {
@@ -119,7 +120,44 @@ export default class Genres extends React.Component {
                     </ul>
                 </div>
                 <div>
-                    {this.state.genres}
+                    {this.state.songs.map((song)=>{
+                        return (
+                            <div
+                                style={{
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    display: "flex",
+                                    marginLeft:"250px"
+                                }}
+                            >
+                                <Button
+                                    style={{
+                                        whiteSpace: "pre-line",
+                                        textAlign: "left",
+                                        textTransform: "none",
+                                        justifyContent: "left",
+                                        alignItems: "left",
+                                        color: "#bebec4",
+                                        background: "#16161a",
+                                        width: 500,
+                                    }}
+                                    onClick={() => {
+                                        clickSong(song);
+                                    }}
+                                >
+                                    <Text>
+                                        <Text style={{ color: "#D9D9D8", fontSize: 16 }}>
+                                            {song.song}
+                                        </Text>
+                                        <Text style={{ color: "#8B8B8C", fontSize: 14 }}>
+                                            {"\n"}
+                                            {song.artist}
+                                        </Text>
+                                    </Text>
+                                </Button>
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
         );
