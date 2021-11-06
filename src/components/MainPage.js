@@ -12,7 +12,7 @@ import InputBase from "@mui/material/InputBase";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import axios from "axios";
-import { borderRadius, width } from "@mui/system";
+import { borderRadius, getContrastRatio, width } from "@mui/system";
 import SplitPane from "react-split-pane";
 import { Splitter } from "@progress/kendo-react-layout";
 import { Text, TouchableHighlight, TouchableOpacity, View } from "react-native";
@@ -23,6 +23,7 @@ import Link from "@mui/material/Link";
 export default class MainPage extends React.Component {
   constructor(props) {
     super(props);
+	this.logoOnCLick = this.logoOnCLick.bind(this)
     this.state = {
       token: this.props.location.state.access_token,
       buttonsList: [],
@@ -52,6 +53,12 @@ export default class MainPage extends React.Component {
   onPressImage() {
     alert("You tapped the button!");
   }
+
+  logoOnCLick () {
+    this.props.history.push('MainPage', {
+            access_token: this.state.token,
+    });
+  };
   render() {
     const clickSong = (song) => {
       console.log(song.song);
@@ -104,7 +111,7 @@ export default class MainPage extends React.Component {
                 justifyContent: "center",
                 alignItems: "center",
                 display: "flex",
-				marginLeft:"250px"
+                marginLeft: "250px",
               }}
             >
               <Button
@@ -144,7 +151,7 @@ export default class MainPage extends React.Component {
           style={{
             height: "100%",
             position: "fixed",
-			backgroundColor:"#010101",
+            backgroundColor: "#010101",
             width: "250px",
             alignItems: "left",
             display: "flex",
@@ -160,6 +167,26 @@ export default class MainPage extends React.Component {
               textAlign: "left",
             }}
           >
+            <li>
+              <TouchableHighlight activeOpacity={1} onPress={this.logoOnCLick}>
+                <View>
+                  <div className="logo" style={{ margin: "10px" }}>
+                    <div style={{ float: "left" }}>
+                      <img
+                        alt="HTML5"
+                        style={{ height: "100px" }}
+                        src="\images\logotype.png"
+                      />
+                    </div>
+                    <div style={{ float: "left" }}>
+                      <h1 style={{ fontSize: "25pt", color: "white" }}>
+                        MusON
+                      </h1>
+                    </div>
+                  </div>
+                </View>
+              </TouchableHighlight>
+            </li>
             <li>
               <Link
                 style={{
@@ -213,13 +240,13 @@ export default class MainPage extends React.Component {
             </li>
           </ul>
         </div>
-        <div style={{display:"flex", marginTop:"100px"}}>
+        <div style={{ display: "flex", marginTop: "100px" }}>
           <div style={{ marginLeft: "250px" }}>
             <div style={{ width: "300px", float: "left" }}>
               <img
                 onClick={this.onPressImage}
                 alt="HTML5"
-                style={{ height: "250px" , borderRadius: "10px"}}
+                style={{ height: "250px", borderRadius: "10px" }}
                 src="/images/DkG03zyV4AAFpXO.jpg"
               />
               <h2 style={{ margin: "0" }}>RAP</h2>
@@ -228,17 +255,21 @@ export default class MainPage extends React.Component {
               <img
                 onClick={this.onPressImage}
                 alt="HTML5"
-                style={{ height: "250px", backgroundColor: "gray" , borderRadius: "10px"}}
+                style={{
+                  height: "250px",
+                  backgroundColor: "gray",
+                  borderRadius: "10px",
+                }}
                 src="\images\linkin-park-logo.png"
               />
 
               <h2 style={{ margin: "0" }}>ROCK</h2>
             </div>
-			<div style={{ width: "300px", float: "left" }}>
+            <div style={{ width: "300px", float: "left" }}>
               <img
                 onClick={this.onPressImage}
                 alt="HTML5"
-                style={{ height: "250px", backgroundColor: "gray", borderRadius: "10px" }}
+                style={{ height: "250px", borderRadius: "10px" }}
                 src="\images\hehe.jpg"
               />
 
@@ -255,16 +286,28 @@ export default class MainPage extends React.Component {
             </div>
           </div>
         </div>
-        <div style={{display:"flex", marginLeft:"250px", justifyContent:"center", marginTop:"50px"}}>
-		<Button variant="contained" size="large" onClick={chartOnClick} style={{width:"200px", backgroundColor:"#7f5af0", padding: 0}}>
-          <h3>Chart</h3>
-        </Button>
+        <div
+          style={{
+            display: "flex",
+            marginLeft: "250px",
+            justifyContent: "center",
+            marginTop: "50px",
+          }}
+        >
+          <Button
+            variant="contained"
+            size="large"
+            onClick={chartOnClick}
+            style={{ width: "200px", backgroundColor: "#7f5af0", padding: 0 }}
+          >
+            <h3>Chart</h3>
+          </Button>
         </div>
-		<div >
-        {/* {chart()}
+        <div>
+          {/* {chart()}
               {all()} */}
-			  {chart()}
-			  </div>
+          {chart()}
+        </div>
       </div>
     );
   }

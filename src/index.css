@@ -15,15 +15,12 @@ code {
 }
 
 h1 {
-  filter: contrast(70%);
+  color:#D9D9D8
 }
 h3 {
   filter: contrast(70%);
 }
 h5 {
-  filter: contrast(70%);
-}
-h1 {
   filter: contrast(70%);
 }
 h3 {
