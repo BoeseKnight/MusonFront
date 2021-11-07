@@ -18,12 +18,14 @@ import { Splitter } from "@progress/kendo-react-layout";
 import { Text, TouchableHighlight, TouchableOpacity, View } from "react-native";
 import Pane from "./Pane";
 import Link from "@mui/material/Link";
+import AudioPlayer from "react-h5-audio-player";
+import "react-h5-audio-player/lib/styles.css";
 // import Helmet from 'react-helmet';
 
 export default class MainPage extends React.Component {
   constructor(props) {
     super(props);
-	this.logoOnCLick = this.logoOnCLick.bind(this)
+    this.logoOnCLick = this.logoOnCLick.bind(this);
     this.state = {
       token: this.props.location.state.access_token,
       buttonsList: [],
@@ -46,7 +48,6 @@ export default class MainPage extends React.Component {
   }
   componentDidMount() {
     if (this.props.active) {
-      // whatever your test might be
       this.boxRef.current.scrollIntoView();
     }
   }
@@ -54,16 +55,32 @@ export default class MainPage extends React.Component {
     alert("You tapped the button!");
   }
 
-  logoOnCLick () {
-    this.props.history.push('MainPage', {
-            access_token: this.state.token,
+  logoOnCLick() {
+    this.props.history.push("MainPage", {
+      access_token: this.state.token,
     });
-  };
-  render() {
-    const clickSong = (song) => {
-      console.log(song.song);
-    };
+  }
 
+  clickSong(song) {
+    const audioEl = document.getElementById("audio-element");
+    const data = { songName: song.id };
+    fetch(`http://localhost:8080/stream/${data.songName}`, {
+      headers: { Authorization: this.state.token },
+    })
+      .then(function (response) {
+        return response;
+      })
+      .then(async function (outcome) {
+        const blob = await outcome.blob();
+        const url = window.URL.createObjectURL(blob);
+        audioEl.src = url;
+        audioEl.play();
+      });
+  }
+  //   pause(){
+  // 	  audioEl.pause();
+  // 	}
+  render() {
     const click = () => {
       console.log("click");
     };
@@ -72,6 +89,9 @@ export default class MainPage extends React.Component {
       this.props.history.push("Artists", {
         access_token: this.state.token,
       });
+    };
+    const playAudio = () => {
+      document.getElementsByClassName("audio-element").play();
     };
 
     const genresOnCLick = () => {
@@ -122,12 +142,10 @@ export default class MainPage extends React.Component {
                   justifyContent: "left",
                   alignItems: "left",
                   color: "#bebec4",
-                  background: "#16161a",
+                  //   background: "#16161a",
                   width: 500,
                 }}
-                onClick={() => {
-                  clickSong(song);
-                }}
+                onClick={this.clickSong(song)}
               >
                 <Text>
                   <Text style={{ color: "#D9D9D8", fontSize: 16 }}>
@@ -249,6 +267,27 @@ export default class MainPage extends React.Component {
                 style={{ height: "250px", borderRadius: "10px" }}
                 src="/images/DkG03zyV4AAFpXO.jpg"
               />
+              <div>
+                <audio id="audio-element" type="audio/mpeg"></audio>
+              </div>
+              {/* <Button
+                variant="contained"
+                size="large"
+                onClick={this.pause}
+                style={{
+                  width: "200px",
+                  backgroundColor: "#7f5af0",
+                  padding: 0,
+                }}
+              >
+                <h3>PAUSE</h3>
+              </Button> */}
+              {/* <AudioPlayer
+                autoPlay
+                src="http://localhost:8080/stream/NothingButThieves-FreeIfWeWantIt.mp3"
+                onPlay={(e) => console.log("onPlay")}
+                // other props here
+              /> */}
               <h2 style={{ margin: "0" }}>RAP</h2>
             </div>
             <div style={{ width: "300px", float: "left" }}>
