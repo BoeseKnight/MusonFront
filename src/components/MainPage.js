@@ -31,6 +31,8 @@ export default class MainPage extends React.Component {
       buttonsList: [],
       isChart: false,
       isAll: true,
+      pause: true,
+      play: false,
     };
     var Song = { id: 0, song: "", artist: "", directory: "", genre: "" };
     const headers = { Authorization: this.state.token };
@@ -82,8 +84,9 @@ export default class MainPage extends React.Component {
   // 	  audioEl.pause();
   // 	}
   render() {
+    const audioEl = document.getElementById("audio-element");
     const clickSong = (song) => {
-      const audioEl = document.getElementById("audio-element");
+      this.setState({ play: true, pause: false });
       const data = { songName: song.id };
       fetch(`http://localhost:8080/stream/${data.songName}`, {
         headers: { Authorization: this.state.token },
@@ -98,6 +101,19 @@ export default class MainPage extends React.Component {
           audioEl.play();
         });
       alert("gg");
+    };
+    const pause = () => {
+      if (this.state.pause) {
+        audioEl.play();
+        this.setState({ play: true, pause: false });
+        console.log("click");
+        alert("vrode on pause");
+      } else {
+        this.setState({ play: false, pause: true });
+        audioEl.pause();
+        console.log("click");
+        alert("vrode play");
+      }
     };
     const click = () => {
       console.log("click");
@@ -286,10 +302,12 @@ export default class MainPage extends React.Component {
               <div>
                 <audio id="audio-element" type="audio/mpeg"></audio>
               </div>
-              {/* <Button
+              <Button
                 variant="contained"
                 size="large"
-                onClick={this.pause}
+                onClick={() => {
+                  pause();
+                }}
                 style={{
                   width: "200px",
                   backgroundColor: "#7f5af0",
@@ -297,7 +315,7 @@ export default class MainPage extends React.Component {
                 }}
               >
                 <h3>PAUSE</h3>
-              </Button> */}
+              </Button>
               {/* <AudioPlayer
                 autoPlay
                 src="http://localhost:8080/stream/NothingButThieves-FreeIfWeWantIt.mp3"
