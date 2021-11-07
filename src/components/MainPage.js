@@ -61,26 +61,44 @@ export default class MainPage extends React.Component {
     });
   }
 
-  clickSong(song) {
-    const audioEl = document.getElementById("audio-element");
-    const data = { songName: song.id };
-    fetch(`http://localhost:8080/stream/${data.songName}`, {
-      headers: { Authorization: this.state.token },
-    })
-      .then(function (response) {
-        return response;
-      })
-      .then(async function (outcome) {
-        const blob = await outcome.blob();
-        const url = window.URL.createObjectURL(blob);
-        audioEl.src = url;
-        audioEl.play();
-      });
-  }
+  // clickSong(song) {
+  // const audioEl = document.getElementById("audio-element");
+  // const data = { songName: song.id };
+  // fetch(`http://localhost:8080/stream/${data.songName}`, {
+  //   headers: { Authorization: this.state.token },
+  // })
+  //   .then(function (response) {
+  //     return response;
+  //   })
+  //   .then(async function (outcome) {
+  //     const blob = await outcome.blob();
+  //     const url = window.URL.createObjectURL(blob);
+  //     audioEl.src = url;
+  //     audioEl.play();
+  //   });
+  //   alert("gg");
+  // }
   //   pause(){
   // 	  audioEl.pause();
   // 	}
   render() {
+    const clickSong = (song) => {
+      const audioEl = document.getElementById("audio-element");
+      const data = { songName: song.id };
+      fetch(`http://localhost:8080/stream/${data.songName}`, {
+        headers: { Authorization: this.state.token },
+      })
+        .then(function (response) {
+          return response;
+        })
+        .then(async function (outcome) {
+          const blob = await outcome.blob();
+          const url = window.URL.createObjectURL(blob);
+          audioEl.src = url;
+          audioEl.play();
+        });
+      alert("gg");
+    };
     const click = () => {
       console.log("click");
     };
@@ -90,10 +108,6 @@ export default class MainPage extends React.Component {
         access_token: this.state.token,
       });
     };
-    const playAudio = () => {
-      document.getElementsByClassName("audio-element").play();
-    };
-
     const genresOnCLick = () => {
       this.props.history.push("Genres", {
         access_token: this.state.token,
@@ -145,7 +159,9 @@ export default class MainPage extends React.Component {
                   //   background: "#16161a",
                   width: 500,
                 }}
-                onClick={this.clickSong(song)}
+                onClick={() => {
+                  clickSong(song);
+                }}
               >
                 <Text>
                   <Text style={{ color: "#D9D9D8", fontSize: 16 }}>
