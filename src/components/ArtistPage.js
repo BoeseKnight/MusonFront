@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import {Text} from "react-native";
 import SplitPane from "react-split-pane";
 import Pane from "./Pane";
+import GenerateListOfSongs from "./CommonComponents"
 import Link from "@mui/material/Link";
 
 export default class ArtistPage extends React.Component {
@@ -27,10 +28,6 @@ export default class ArtistPage extends React.Component {
             this.props.history.push("Artists", {
                 access_token: this.state.token,
             });
-        };
-
-        const clickSong = (song) => {
-            console.log(song.song);
         };
 
         const genresOnCLick = () => {
@@ -120,44 +117,7 @@ export default class ArtistPage extends React.Component {
                     </ul>
                 </div>
                 <div>
-                    {this.state.songs.map((song)=>{
-                        return (
-                            <div
-                                style={{
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                    display: "flex",
-                                    marginLeft:"250px"
-                                }}
-                            >
-                                <Button
-                                    style={{
-                                        whiteSpace: "pre-line",
-                                        textAlign: "left",
-                                        textTransform: "none",
-                                        justifyContent: "left",
-                                        alignItems: "left",
-                                        color: "#bebec4",
-                                        background: "#16161a",
-                                        width: 500,
-                                    }}
-                                    onClick={() => {
-                                        clickSong(song);
-                                    }}
-                                >
-                                    <Text>
-                                        <Text style={{ color: "#D9D9D8", fontSize: 16 }}>
-                                            {song.song}
-                                        </Text>
-                                        <Text style={{ color: "#8B8B8C", fontSize: 14 }}>
-                                            {"\n"}
-                                            {song.artist}
-                                        </Text>
-                                    </Text>
-                                </Button>
-                            </div>
-                        );
-                    })}
+                    {this.state.songs.map(GenerateListOfSongs)}
                 </div>
             </div>
         );
