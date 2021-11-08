@@ -40,7 +40,7 @@ export default class MainPage extends React.Component {
     var buttonStyle = {
       margin: "10px 10px 10px 0",
     };
-    fetch("http://localhost:8080/showAllSongs", { headers })
+    fetch("http://localhost:8080/findByGenre?genre=russian%20rock", { headers })
       .then((response) => response.json())
       .then((data) => {
         this.setState({ buttonsList: data }, () => {
@@ -63,26 +63,6 @@ export default class MainPage extends React.Component {
     });
   }
 
-  // clickSong(song) {
-  // const audioEl = document.getElementById("audio-element");
-  // const data = { songName: song.id };
-  // fetch(`http://localhost:8080/stream/${data.songName}`, {
-  //   headers: { Authorization: this.state.token },
-  // })
-  //   .then(function (response) {
-  //     return response;
-  //   })
-  //   .then(async function (outcome) {
-  //     const blob = await outcome.blob();
-  //     const url = window.URL.createObjectURL(blob);
-  //     audioEl.src = url;
-  //     audioEl.play();
-  //   });
-  //   alert("gg");
-  // }
-  //   pause(){
-  // 	  audioEl.pause();
-  // 	}
   render() {
     const audioEl = document.getElementById("audio-element");
     const clickSong = (song) => {
@@ -115,29 +95,6 @@ export default class MainPage extends React.Component {
         alert("vrode play");
       }
     };
-
-    const onPressPop = () => {
-      this.props.history.push("Pop", {
-        access_token: this.state.token,
-      });
-    };
-
-    const onPressRock = () => {
-      this.props.history.push("Rock", {
-        access_token: this.state.token,
-      });
-    };
-    const onPressRussianRock = () => {
-      this.props.history.push("RussianRock", {
-        access_token: this.state.token,
-      });
-    };
-
-    const onPressRap = () => {
-      this.props.history.push("Rap", {
-        access_token: this.state.token,
-      });
-    };
     const click = () => {
       console.log("click");
     };
@@ -162,17 +119,6 @@ export default class MainPage extends React.Component {
     const chartOnClick = () => {
       this.setState({ isChart: true, isAll: false });
       console.log(this.state.isChart);
-    };
-
-    const allOnClick = () => {
-      this.setState({ isChart: false, isAll: true });
-      console.log(this.state.isAll);
-    };
-
-    const all = () => {
-      if (this.state.isAll) {
-        return <div>All</div>;
-      }
     };
 
     const chart = () => {
@@ -316,14 +262,6 @@ export default class MainPage extends React.Component {
         <div style={{ display: "flex", marginTop: "100px" }}>
           <div style={{ marginLeft: "250px" }}>
             <div style={{ width: "300px", float: "left" }}>
-              <img
-                onClick={() => {
-                  onPressRap();
-                }}
-                alt="HTML5"
-                style={{ height: "250px", borderRadius: "10px" }}
-                src="/images/DkG03zyV4AAFpXO.jpg"
-              />
               <div>
                 <audio id="audio-element" type="audio/mpeg"></audio>
               </div>
@@ -347,46 +285,6 @@ export default class MainPage extends React.Component {
                 onPlay={(e) => console.log("onPlay")}
                 // other props here
               /> */}
-              <h2 style={{ margin: "0" }}>RAP</h2>
-            </div>
-            <div style={{ width: "300px", float: "left" }}>
-              <img
-                onClick={() => {
-                  onPressRock();
-                }}
-                alt="HTML5"
-                style={{
-                  height: "250px",
-                  backgroundColor: "gray",
-                  borderRadius: "10px",
-                }}
-                src="\images\linkin-park-logo.png"
-              />
-
-              <h2 style={{ margin: "0" }}>ROCK</h2>
-            </div>
-            <div style={{ width: "300px", float: "left" }}>
-              <img
-                onClick={() => {
-                  onPressPop();
-                }}
-                alt="HTML5"
-                style={{ height: "250px", borderRadius: "10px" }}
-                src="\images\hehe.jpg"
-              />
-
-              <h2 style={{ margin: "0" }}>POP</h2>
-            </div>
-            <div style={{ width: "300px", float: "left" }}>
-              <img
-                onClick={() => {
-                  onPressRussianRock();
-                }}
-                alt="HTML5"
-                style={{ width: "250px", borderRadius: "10px" }}
-                src="\images\pic.jpg"
-              />
-              <h2 style={{ margin: "0" }}>RUSSIAN ROCK</h2>
             </div>
           </div>
         </div>
@@ -407,11 +305,7 @@ export default class MainPage extends React.Component {
             <h3>Chart</h3>
           </Button>
         </div>
-        <div>
-          {/* {chart()}
-              {all()} */}
-          {chart()}
-        </div>
+        <div>{chart()}</div>
       </div>
     );
   }
