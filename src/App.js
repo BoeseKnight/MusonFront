@@ -10,6 +10,7 @@ import { ReactDOM } from "react";
 import {useState} from 'react';
 import Collection from "./components/Collection";
 import ArtistPage from "./components/ArtistPage";
+import GenrePage from "./components/GenrePage";
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route path="/genres" component={Genres} />
           <Route path="/collection" component={Collection} />
           <Route path="/artistPage" component={ArtistPage} />
+          <Route path="/genrePage" component={GenrePage} />
         </Switch>
       </div>
     </Router>

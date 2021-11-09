@@ -1,125 +1,64 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
-import {Text} from "react-native";
-import SplitPane from "react-split-pane";
-import Pane from "./Pane";
+import { Text } from "react-native";
 import Link from "@mui/material/Link";
+import { TouchableHighlight, TouchableOpacity, View } from "react-native";
+import SidePane from "./SidePane"
 
 export default class Genres extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {token: this.props.location.state.access_token, genres: []};
+        this.logoOnCLick = this.logoOnCLick.bind(this)
+        this.state = { token: this.props.location.state.access_token, genres: [] };
         fetch("http://localhost:8080/api/getAllGenres", {
             method: "GET",
             headers: {
-                'Authorization' : this.state.token
-            }
+                Authorization: this.state.token,
+            },
         })
-            .then(response => response.json())
-            .then(data =>
-            {
+            .then((response) => response.json())
+            .then((data) => {
                 console.log("Data is: " + data);
                 //this.state.genres.push(genre);
-                this.setState({genres: data})
-                console.log("State is: " + this.state.genres);
+                this.setState({ genres: data });
             })
-            .catch(error => console.error('Error:', error));
+            .catch((error) => console.error("Error:", error));
     }
-    render () {
-        const artistsOnCLick = () => {
-            this.props.history.push("Artists", {
+    logoOnCLick () {
+        this.props.history.push('MainPage', {
+            access_token: this.state.token,
+        });
+    };
+    render() {
+        const onPressImage = (genreName) => {
+            this.props.history.push("GenrePage", {
                 access_token: this.state.token,
-            });
-        };
-
-        const genresOnCLick = () => {
-            this.props.history.push("Genres", {
-                access_token: this.state.token,
-            });
-        };
-
-        const collectionOnCLick = () => {
-            this.props.history.push("Collection", {
-                access_token: this.state.token,
+                genre_name: genreName,
             });
         };
         return (
             <div>
-                <div
-                    style={{
-                        height: "100%",
-                        position: "fixed",
-                        backgroundColor:"#010101",
-                        width: "250px",
-                        alignItems: "left",
-                        display: "flex",
-                        top: "0",
-                        left: "0",
-                    }}
-                >
-                    <ul
-                        style={{
-                            listStyleType: "none",
-                            marginTop: "0px",
-                            padding: "0px",
-                            textAlign: "left",
-                        }}
-                    >
-                        <li>
-                            <Link
-                                style={{
-                                    color: "white",
-                                    fontSize: "14pt",
-                                    margin: "20px",
-                                    height: "2px",
-                                }}
-                                underline="none"
-                                component="button"
-                                onClick={() => {
-                                    collectionOnCLick();
-                                }}
-                            >
-                                <h4>Collection</h4>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
-                                style={{
-                                    color: "white",
-                                    fontSize: "14pt",
-                                    margin: "20px",
-                                    height: "2px",
-                                }}
-                                underline="none"
-                                component="button"
-                                onClick={() => {
-                                    artistsOnCLick();
-                                }}
-                            >
-                                <h4>Artists</h4>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
-                                style={{
-                                    color: "white",
-                                    fontSize: "14pt",
-                                    margin: "20px",
-                                    height: "2px",
-                                }}
-                                underline="none"
-                                component="button"
-                                onClick={() => {
-                                    genresOnCLick();
-                                }}
-                            >
-                                <h4>Genres</h4>
-                            </Link>
-                        </li>
-                    </ul>
-                </div>
                 <div>
-                    {this.state.genres}
+                    {SidePane(this.state.token, this.props)}
+                </div>
+                <div style={{ display: "flex", marginTop: "100px" }}>
+                    <div style={{ marginLeft: "250px" }}>
+                        {this.state.genres.map((genre) => {
+                            return (
+                                <div style={{ width: "300px", float: "left" }}>
+                                    <img
+                                        onClick={() => {
+                                            onPressImage(genre.genre);
+                                        }}
+                                        alt="HTML5"
+                                        style={{ height: "250px", borderRadius: "10px" }}
+                                        src={genre.pathToImage}
+                                    />
+                                    <h2 style={{ margin: "0" }}>{genre.genre}</h2>
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
             </div>
         );
