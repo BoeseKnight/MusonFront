@@ -39,7 +39,7 @@ export default class Genres extends React.Component {
     return (
       <div>
         <div>{SidePane(this.state.token, this.props)}</div>
-        <div style={{ display: "flex", marginTop: "100px" }}>
+        <div style={{ display: "flex", marginTop: "50px" }}>
           <div style={{ marginLeft: "250px" }}>
             {this.state.genres.map((genre) => {
               return (
@@ -53,7 +53,16 @@ export default class Genres extends React.Component {
                     src={genre.pathToImage}
                   />
                   {console.log(genre.pathToImage)}
-                  <h2 style={{ margin: "0" }}>{genre.genre}</h2>
+                  <h2
+                    style={{
+                      marginBottom: "10px",
+                      marginTop: "0",
+                      marginLeft: "0",
+                      marginRight: "0",
+                    }}
+                  >
+                    {genre.genre}
+                  </h2>
                 </div>
               );
             })}

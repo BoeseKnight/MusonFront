@@ -6,6 +6,7 @@ import FavoriteIcon from "@mui/icons-material/FavoriteBorder";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { pink } from "@mui/material/colors";
 import { AiFillHeart } from "react-icons/ai";
+import { IoHeartDislikeSharp } from "react-icons/io5";
 
 const clickSong = (song, token, play, pause) => {
   play = true;
@@ -86,7 +87,10 @@ export default function GenerateListOfSongs(songs, token, play, pause) {
           style={{ color: "#7f5af0", fontSize: "28px" }}
           onClick={() => likeOnClick(song, token)}
         />
-        {/* onClick={() => dislikeOnClick(song, token)} */}
+        <IoHeartDislikeSharp
+          style={{ fontSize: "28px", marginLeft: "10px" }}
+          onClick={() => dislikeOnClick(song, token)}
+        />
         <div>
           <audio id="audio-element" type="audio/mpeg"></audio>
         </div>
