@@ -1,14 +1,13 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
 import { Text } from "react-native";
-import SplitPane from "react-split-pane";
 import Link from "@mui/material/Link";
 import { TouchableHighlight, TouchableOpacity, View } from "react-native";
 
 export default class Artists extends React.Component {
   constructor(props) {
     super(props);
-    this.logoOnCLick = this.logoOnCLick.bind(this)
+    this.logoOnCLick = this.logoOnCLick.bind(this);
     this.state = { token: this.props.location.state.access_token, artists: [] };
     fetch("http://localhost:8080/api/getAllArtists", {
       method: "GET",
@@ -25,26 +24,26 @@ export default class Artists extends React.Component {
       })
       .catch((error) => console.error("Error:", error));
   }
-  logoOnCLick () {
-    this.props.history.push('MainPage', {
-            access_token: this.state.token,
+  logoOnCLick() {
+    this.props.history.push("MainPage", {
+      access_token: this.state.token,
     });
-  };
+  }
   render() {
     const artistsOnCLick = () => {
-      this.props.history.push('Artists', {
+      this.props.history.push("Artists", {
         access_token: this.state.token,
       });
     };
 
     const genresOnCLick = () => {
-      this.props.history.push('Genres', {
+      this.props.history.push("Genres", {
         access_token: this.state.token,
       });
     };
 
     const collectionOnCLick = () => {
-      this.props.history.push('Collection', {
+      this.props.history.push("Collection", {
         access_token: this.state.token,
       });
     };

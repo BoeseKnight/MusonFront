@@ -53,10 +53,6 @@ export default class MainPage extends React.Component {
     }
   }
 
-  onPressImage() {
-    alert("You tapped the button!");
-  }
-
   logoOnCLick() {
     this.props.history.push("MainPage", {
       access_token: this.state.token,

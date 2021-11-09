@@ -85,7 +85,6 @@ export default class MainPage extends React.Component {
           audioEl.src = url;
           audioEl.play();
         });
-      alert("gg");
     };
     const pause = () => {
       if (this.state.pause) {
@@ -99,9 +98,6 @@ export default class MainPage extends React.Component {
         console.log("click");
         alert("vrode play");
       }
-    };
-    const click = () => {
-      console.log("click");
     };
 
     const artistsOnCLick = () => {
@@ -127,47 +123,47 @@ export default class MainPage extends React.Component {
     };
 
     const chart = () => {
+
         return this.state.buttonsList.map((song) => {
           return (
             <div
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              display: "flex",
+              marginLeft: "250px",
+            }}
+          >
+            <Button
               style={{
-                justifyContent: "center",
-                alignItems: "center",
-                display: "flex",
-                marginLeft: "250px",
+                whiteSpace: "pre-line",
+                textAlign: "left",
+                textTransform: "none",
+                justifyContent: "left",
+                alignItems: "left",
+                color: "#bebec4",
+                //   background: "#16161a",
+                width: 500,
+              }}
+              onClick={() => {
+                clickSong(song);
               }}
             >
-              <Button
-                style={{
-                  whiteSpace: "pre-line",
-                  textAlign: "left",
-                  textTransform: "none",
-                  justifyContent: "left",
-                  alignItems: "left",
-                  color: "#bebec4",
-                  //   background: "#16161a",
-                  width: 500,
-                }}
-                onClick={() => {
-                  clickSong(song);
-                }}
-              >
-                <Text>
-                  <Text style={{ color: "#D9D9D8", fontSize: 16 }}>
-                    {song.song}
-                  </Text>
-                  <Text style={{ color: "#8B8B8C", fontSize: 14 }}>
-                    {"\n"}
-                    {song.artist}
-                  </Text>
+              <Text>
+                <Text style={{ color: "#D9D9D8", fontSize: 16 }}>
+                  {song.song}
                 </Text>
-              </Button>
-            </div>
-          );
-        });
-
+                <Text style={{ color: "#8B8B8C", fontSize: 14 }}>
+                  {"\n"}
+                  {song.artist}
+                </Text>
+              </Text>
+            </Button>
+          </div>
+        );
+      });
+      // }
     };
-
     return (
       <div>
         <div>
@@ -225,6 +221,7 @@ export default class MainPage extends React.Component {
             this.state.play,
             this.state.pause
         )}</div>
+
       </div>
     );
   }
