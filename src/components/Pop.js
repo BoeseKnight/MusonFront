@@ -18,6 +18,7 @@ import { Text, TouchableHighlight, TouchableOpacity, View } from "react-native";
 import Link from "@mui/material/Link";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
+import GenerateListOfSongs from "./ListOfSongs";
 // import Helmet from 'react-helmet';
 
 export default class MainPage extends React.Component {
@@ -38,14 +39,14 @@ export default class MainPage extends React.Component {
     var buttonStyle = {
       margin: "10px 10px 10px 0",
     };
+    
+    fetch("http://localhost:8080/api/getAllByGenre?genre=pop", {
+      method: "GET",
+      headers: {
+        'Authorization': this.state.token,
+      },
+    })
 
-    fetch("http://localhost:8080/findByGenre?genre=pop", { headers })
-      .then((response) => response.json())
-      .then((data) => {
-        this.setState({ buttonsList: data }, () => {
-          console.log(this.state.buttonsList);
-        });
-      });
   }
 
   componentDidMount() {
@@ -290,16 +291,21 @@ export default class MainPage extends React.Component {
             marginTop: "50px",
           }}
         >
-          {/* <Button
-            variant="contained"
-            size="large"
-            // onClick={chartOnClick}
-            style={{ width: "200px", backgroundColor: "#7f5af0", padding: 0 }}
-          >
-            <h3>Chart</h3>
-          </Button> */}
+          {/*<Button*/}
+          {/*  variant="contained"*/}
+          {/*  size="large"*/}
+          {/*  onClick={chartOnClick}*/}
+          {/*  style={{ width: "200px", backgroundColor: "#7f5af0", padding: 0 }}*/}
+          {/*>*/}
+          {/*  <h3>Chart</h3>*/}
+          {/*</Button>*/}
         </div>
-        <div>{chart()}</div>
+        <div>{GenerateListOfSongs(
+            this.state.buttonsList,
+            this.state.token,
+            this.state.play,
+            this.state.pause
+        )}</div>
       </div>
     );
   }
