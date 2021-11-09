@@ -10,6 +10,7 @@ import { ReactDOM } from "react";
 import { useState } from "react";
 import Collection from "./components/Collection";
 import ArtistPage from "./components/ArtistPage";
+import GenrePage from "./components/GenrePage";
 import Rock from "./components/Rock";
 import Pop from "./components/Pop";
 import Rap from "./components/Rap";
@@ -29,10 +30,12 @@ function App() {
           <Route path="/genres" component={Genres} />
           <Route path="/collection" component={Collection} />
           <Route path="/artistPage" component={ArtistPage} />
+
+          <Route path="/genrePage" component={GenrePage} />
           <Route path="/rock" component={Rock} />
           <Route path="/pop" component={Pop} />
           <Route path="/rap" component={Rap} />
-          <Route path="/russianRock" component={RussianRock} />
+          <Route path="/russianRock" component={RussianRock} />S
         </Switch>
       </div>
     </Router>
