@@ -18,7 +18,7 @@ import { Text, TouchableHighlight, TouchableOpacity, View } from "react-native";
 import Link from "@mui/material/Link";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
-import SidePane from "./SidePane"
+import SidePane from "./SidePane";
 import GenerateListOfSongs from "./ListOfSongs";
 // import Helmet from 'react-helmet';
 
@@ -35,17 +35,17 @@ export default class MainPage extends React.Component {
       play: false,
     };
     var Song = { id: 0, song: "", artist: "", directory: "", genre: "" };
-    const headers = { 'Authorization': this.state.token };
+    const headers = { Authorization: this.state.token };
     this.boxRef = React.createRef();
     var buttonStyle = {
       margin: "10px 10px 10px 0",
     };
-      fetch("http://localhost:8080/api/getAllByGenre?genre=rock", {
-          method: "GET",
-          headers: {
-              'Authorization': this.state.token,
-          },
-      })
+    fetch("http://localhost:8080/api/getAllByGenre?genre=rock", {
+      method: "GET",
+      headers: {
+        Authorization: this.state.token,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         this.setState({ buttonsList: data }, () => {
@@ -123,10 +123,9 @@ export default class MainPage extends React.Component {
     };
 
     const chart = () => {
-
-        return this.state.buttonsList.map((song) => {
-          return (
-            <div
+      return this.state.buttonsList.map((song) => {
+        return (
+          <div
             style={{
               justifyContent: "center",
               alignItems: "center",
@@ -166,9 +165,7 @@ export default class MainPage extends React.Component {
     };
     return (
       <div>
-        <div>
-            {SidePane(this.state.token, this.props)}
-        </div>
+        <div>{SidePane(this.state.token, this.props)}</div>
         <div style={{ display: "flex", marginTop: "100px" }}>
           <div style={{ marginLeft: "250px" }}>
             <div style={{ width: "300px", float: "left" }}>
@@ -215,13 +212,14 @@ export default class MainPage extends React.Component {
           {/*  <h3>Chart</h3>*/}
           {/*</Button>*/}
         </div>
-        <div>{GenerateListOfSongs(
+        <div>
+          {GenerateListOfSongs(
             this.state.buttonsList,
             this.state.token,
             this.state.play,
             this.state.pause
-        )}</div>
-
+          )}
+        </div>
       </div>
     );
   }

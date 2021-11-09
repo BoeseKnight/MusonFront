@@ -52,6 +52,7 @@ export default class Genres extends React.Component {
                     style={{ height: "250px", borderRadius: "10px" }}
                     src={genre.pathToImage}
                   />
+                  {console.log(genre.pathToImage)}
                   <h2 style={{ margin: "0" }}>{genre.genre}</h2>
                 </div>
               );

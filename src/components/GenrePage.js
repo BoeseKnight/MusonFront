@@ -32,6 +32,8 @@ export default class GenrePage extends React.Component {
   render() {
     return (
       <div>
+        {console.log(this.genreName)}
+
         <div>{SidePane(this.state.token, this.props)}</div>
         <div>
           <audio id="audio-element" type="audio/mpeg"></audio>

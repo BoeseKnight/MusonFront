@@ -40,12 +40,12 @@ export default class MainPage extends React.Component {
     var buttonStyle = {
       margin: "10px 10px 10px 0",
     };
-      fetch("http://localhost:8080/api/getAllByGenre?genre=pop", {
-          method: "GET",
-          headers: {
-              'Authorization': this.state.token,
-          },
-      })
+    fetch("http://localhost:8080/api/getAllByGenre?genre=russian%20rock", {
+      method: "GET",
+      headers: {
+        Authorization: this.state.token,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         this.setState({ buttonsList: data }, () => {
@@ -309,13 +309,14 @@ export default class MainPage extends React.Component {
           {/*  <h3>Chart</h3>*/}
           {/*</Button>*/}
         </div>
-        <div>{GenerateListOfSongs(
+        <div>
+          {GenerateListOfSongs(
             this.state.buttonsList,
             this.state.token,
             this.state.play,
             this.state.pause
-        )}</div>
-         
+          )}
+        </div>
       </div>
     );
   }

@@ -35,8 +35,7 @@ const likeOnClick = (song, token) => {
     headers: { Authorization: token },
     method: "POST",
     body: formData,
-  })
-      .catch((error) => console.error("Error:", error));
+  }).catch((error) => console.error("Error:", error));
 };
 
 const dislikeOnClick = (song, token) => {
@@ -46,8 +45,7 @@ const dislikeOnClick = (song, token) => {
     headers: { Authorization: token },
     method: "POST",
     body: formData,
-  })
-    .catch((error) => console.error("Error:", error));
+  }).catch((error) => console.error("Error:", error));
 };
 
 export default function GenerateListOfSongs(songs, token, play, pause) {
@@ -84,8 +82,10 @@ export default function GenerateListOfSongs(songs, token, play, pause) {
           </Text>
         </Button>
 
-        <AiFillHeart style={{ color: "#7f5af0", fontSize: "28px" }}
-        onClick={() => likeOnClick(song,token)}/>
+        <AiFillHeart
+          style={{ color: "#7f5af0", fontSize: "28px" }}
+          onClick={() => likeOnClick(song, token)}
+        />
         {/* onClick={() => dislikeOnClick(song, token)} */}
         <div>
           <audio id="audio-element" type="audio/mpeg"></audio>

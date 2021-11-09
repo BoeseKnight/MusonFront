@@ -163,7 +163,7 @@ export default class MainPage extends React.Component {
                 }}
                 alt="HTML5"
                 style={{ height: "250px", borderRadius: "10px" }}
-                src="/images/DkG03zyV4AAFpXO.jpg"
+                src="\images\rap.jpg"
               />
               <div>
                 <audio id="audio-element" type="audio/mpeg"></audio>
@@ -201,7 +201,7 @@ export default class MainPage extends React.Component {
                   backgroundColor: "gray",
                   borderRadius: "10px",
                 }}
-                src="\images\linkin-park-logo.png"
+                src="\images\rock.png"
               />
 
               <h2 style={{ margin: "0" }}>ROCK</h2>
@@ -213,7 +213,7 @@ export default class MainPage extends React.Component {
                 }}
                 alt="HTML5"
                 style={{ height: "250px", borderRadius: "10px" }}
-                src="\images\hehe.jpg"
+                src="\images\pop.jpg"
               />
 
               <h2 style={{ margin: "0" }}>POP</h2>
@@ -225,7 +225,7 @@ export default class MainPage extends React.Component {
                 }}
                 alt="HTML5"
                 style={{ width: "250px", borderRadius: "10px" }}
-                src="\images\pic.jpg"
+                src="\images\rusrock.jpg"
               />
               <h2 style={{ margin: "0" }}>RUSSIAN ROCK</h2>
             </div>
