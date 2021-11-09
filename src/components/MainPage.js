@@ -20,6 +20,7 @@ import Pane from "./Pane";
 import Link from "@mui/material/Link";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 // import Helmet from 'react-helmet';
 
 export default class MainPage extends React.Component {
@@ -212,6 +213,7 @@ export default class MainPage extends React.Component {
                   </Text>
                 </Text>
               </Button>
+              <FavoriteBorderIcon sx={{ color: "pink" }} />
             </div>
           );
         });
