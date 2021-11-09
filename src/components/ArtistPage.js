@@ -1,42 +1,44 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
-import {Text} from "react-native";
-import SplitPane from "react-split-pane";
-import GenerateListOfSongs from "./ListOfSongs"
-import SidePane from "./SidePane"
+import { Text } from "react-native";
+import GenerateListOfSongs from "./ListOfSongs";
+import SidePane from "./SidePane";
 import Link from "@mui/material/Link";
 
 export default class ArtistPage extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {token: this.props.location.state.access_token, artistName: this.props.location.state.artist_name, songs: []};
-        fetch("http://localhost:8080/api/getArtistsSongs?artist=" + this.state.artistName, {
-            method: "GET",
-            headers: {
-                'Authorization' : this.state.token
-            }
-        })
-            .then(response => response.json())
-            .then(data =>
-            {
-                this.setState({songs: data})
-            })
-            .catch(error => console.error('Error:', error));
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      token: this.props.location.state.access_token,
+      artistName: this.props.location.state.artist_name,
+      songs: [],
+    };
+    fetch(
+      "http://localhost:8080/api/getArtistsSongs?artist=" +
+        this.state.artistName,
+      {
+        method: "GET",
+        headers: {
+          Authorization: this.state.token,
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        this.setState({ songs: data });
+      })
+      .catch((error) => console.error("Error:", error));
+  }
 
-    render () {
-        return (
-            <div>
-                <div>
-                    {SidePane(this.state.token, this.props)}
-                </div>
-                <div>
-                    <audio id="audio-element" type="audio/mpeg"></audio>
-                </div>
-                <div>
-                    {GenerateListOfSongs(this.state.songs, this.state.token)}
-                </div>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <div>{SidePane(this.state.token, this.props)}</div>
+        <div>
+          <audio id="audio-element" type="audio/mpeg"></audio>
+        </div>
+        <div>{GenerateListOfSongs(this.state.songs, this.state.token)}</div>
+      </div>
+    );
+  }
 }

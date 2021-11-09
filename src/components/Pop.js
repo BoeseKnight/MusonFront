@@ -38,35 +38,20 @@ export default class MainPage extends React.Component {
     var buttonStyle = {
       margin: "10px 10px 10px 0",
     };
-    fetch("http://localhost:8080/api/getAllByGenre?genre=pop", {
-      method: "GET",
-      headers: {
-        Authorization: this.state.token,
-      },
-    })
+
+    fetch("http://localhost:8080/findByGenre?genre=pop", { headers })
       .then((response) => response.json())
       .then((data) => {
-        // this.setState({ buttonsList: data });
         this.setState({ buttonsList: data }, () => {
           console.log(this.state.buttonsList);
         });
-      })
-      .catch((error) => console.error("Error:", error));
-    // fetch("http://localhost:8080/getAllByGenre?genre=pop", { headers })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     this.setState({ buttonsList: data }, () => {
-    //       console.log(this.state.buttonsList);
-    //     });
-    //   });
+      });
   }
+
   componentDidMount() {
     if (this.props.active) {
       this.boxRef.current.scrollIntoView();
     }
-  }
-  onPressImage() {
-    alert("You tapped the button!");
   }
 
   logoOnCLick() {
@@ -92,8 +77,8 @@ export default class MainPage extends React.Component {
           audioEl.src = url;
           audioEl.play();
         });
-      alert("gg");
     };
+
     const pause = () => {
       if (this.state.pause) {
         audioEl.play();
@@ -106,9 +91,6 @@ export default class MainPage extends React.Component {
         console.log("click");
         alert("vrode play");
       }
-    };
-    const click = () => {
-      console.log("click");
     };
 
     const artistsOnCLick = () => {
@@ -128,52 +110,52 @@ export default class MainPage extends React.Component {
       });
     };
 
-    const chartOnClick = () => {
-      this.setState({ isChart: true, isAll: false });
-      console.log(this.state.isChart);
-    };
+    // const chartOnClick = () => {
+    //   this.setState({ isChart: true, isAll: false });
+    //   console.log(this.state.isChart);
+    // };
 
     const chart = () => {
-      if (this.state.isChart) {
-        return this.state.buttonsList.map((song) => {
-          return (
-            <div
+      // if (this.state.isChart) {
+      return this.state.buttonsList.map((song) => {
+        return (
+          <div
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              display: "flex",
+              marginLeft: "250px",
+            }}
+          >
+            <Button
               style={{
-                justifyContent: "center",
-                alignItems: "center",
-                display: "flex",
-                marginLeft: "250px",
+                whiteSpace: "pre-line",
+                textAlign: "left",
+                textTransform: "none",
+                justifyContent: "left",
+                alignItems: "left",
+                color: "#bebec4",
+                //   background: "#16161a",
+                width: 500,
+              }}
+              onClick={() => {
+                clickSong(song);
               }}
             >
-              <Button
-                style={{
-                  whiteSpace: "pre-line",
-                  textAlign: "left",
-                  textTransform: "none",
-                  justifyContent: "left",
-                  alignItems: "left",
-                  color: "#bebec4",
-                  //   background: "#16161a",
-                  width: 500,
-                }}
-                onClick={() => {
-                  clickSong(song);
-                }}
-              >
-                <Text>
-                  <Text style={{ color: "#D9D9D8", fontSize: 16 }}>
-                    {song.song}
-                  </Text>
-                  <Text style={{ color: "#8B8B8C", fontSize: 14 }}>
-                    {"\n"}
-                    {song.artist}
-                  </Text>
+              <Text>
+                <Text style={{ color: "#D9D9D8", fontSize: 16 }}>
+                  {song.song}
                 </Text>
-              </Button>
-            </div>
-          );
-        });
-      }
+                <Text style={{ color: "#8B8B8C", fontSize: 14 }}>
+                  {"\n"}
+                  {song.artist}
+                </Text>
+              </Text>
+            </Button>
+          </div>
+        );
+      });
+      // }
     };
 
     return (
@@ -308,16 +290,16 @@ export default class MainPage extends React.Component {
             marginTop: "50px",
           }}
         >
-          <Button
+          {/* <Button
             variant="contained"
             size="large"
-            onClick={chartOnClick}
+            // onClick={chartOnClick}
             style={{ width: "200px", backgroundColor: "#7f5af0", padding: 0 }}
           >
             <h3>Chart</h3>
-          </Button>
+          </Button> */}
         </div>
-        <div>{chart}</div>
+        <div>{chart()}</div>
       </div>
     );
   }
