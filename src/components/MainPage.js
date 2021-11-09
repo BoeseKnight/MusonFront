@@ -16,8 +16,9 @@ import { borderRadius, getContrastRatio, width } from "@mui/system";
 import SplitPane from "react-split-pane";
 import { Splitter } from "@progress/kendo-react-layout";
 import { Text, TouchableHighlight, TouchableOpacity, View } from "react-native";
-import Pane from "./Pane";
 import Link from "@mui/material/Link";
+import GenerateListOfSongs from "./ListOfSongs";
+import SidePane from "./SidePane"
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -29,23 +30,19 @@ export default class MainPage extends React.Component {
     this.logoOnCLick = this.logoOnCLick.bind(this);
     this.state = {
       token: this.props.location.state.access_token,
-      buttonsList: [],
+      songs: [],
       isChart: false,
       isAll: true,
       pause: true,
       play: false,
     };
-    var Song = { id: 0, song: "", artist: "", directory: "", genre: "" };
     const headers = { Authorization: this.state.token };
     this.boxRef = React.createRef();
-    var buttonStyle = {
-      margin: "10px 10px 10px 0",
-    };
     fetch("http://localhost:8080/showAllSongs", { headers })
       .then((response) => response.json())
       .then((data) => {
-        this.setState({ buttonsList: data }, () => {
-          console.log(this.state.buttonsList);
+        this.setState({ songs: data }, () => {
+          console.log(this.state.songs);
         });
       });
   }
@@ -81,10 +78,14 @@ export default class MainPage extends React.Component {
   //   });
   //   alert("gg");
   // }
+
   //   pause(){
   // 	  audioEl.pause();
   // 	}
   render() {
+
+    const playAudio = () => {
+      document.getElementsByClassName("audio-element").play();
     const audioEl = document.getElementById("audio-element");
     const clickSong = (song) => {
       this.setState({ play: true, pause: false });
@@ -222,98 +223,8 @@ export default class MainPage extends React.Component {
 
     return (
       <div>
-        <div
-          style={{
-            height: "100%",
-            position: "fixed",
-            backgroundColor: "#010101",
-            width: "250px",
-            alignItems: "left",
-            display: "flex",
-            top: "0",
-            left: "0",
-          }}
-        >
-          <ul
-            style={{
-              listStyleType: "none",
-              marginTop: "0px",
-              padding: "0px",
-              textAlign: "left",
-            }}
-          >
-            <li>
-              <TouchableHighlight activeOpacity={1} onPress={this.logoOnCLick}>
-                <View>
-                  <div className="logo" style={{ margin: "10px" }}>
-                    <div style={{ float: "left" }}>
-                      <img
-                        alt="HTML5"
-                        style={{ height: "100px" }}
-                        src="\images\logotype.png"
-                      />
-                    </div>
-                    <div style={{ float: "left" }}>
-                      <h1 style={{ fontSize: "25pt", color: "white" }}>
-                        MusON
-                      </h1>
-                    </div>
-                  </div>
-                </View>
-              </TouchableHighlight>
-            </li>
-            <li>
-              <Link
-                style={{
-                  color: "white",
-                  fontSize: "14pt",
-                  margin: "20px",
-                  height: "2px",
-                }}
-                underline="none"
-                component="button"
-                onClick={() => {
-                  collectionOnCLick();
-                }}
-              >
-                <h4>Collection</h4>
-              </Link>
-            </li>
-            <li>
-              <Link
-                style={{
-                  color: "white",
-                  fontSize: "14pt",
-                  margin: "20px",
-                  height: "2px",
-                }}
-                underline="none"
-                component="button"
-                onClick={() => {
-                  artistsOnCLick();
-                }}
-              >
-                <h4>Artists</h4>
-              </Link>
-            </li>
-            <li>
-              <Link
-                style={{
-                  color: "white",
-                  fontSize: "14pt",
-                  margin: "20px",
-                  height: "2px",
-                }}
-                underline="none"
-                component="button"
-                onClick={() => {
-                  genresOnCLick();
-                }}
-              >
-                <h4>Genres</h4>
-              </Link>
-            </li>
-          </ul>
+        <div>
+            {SidePane(this.state.token, this.props)}
         </div>
         <div style={{ display: "flex", marginTop: "100px" }}>
           <div style={{ marginLeft: "250px" }}>
@@ -410,9 +321,7 @@ export default class MainPage extends React.Component {
           </Button>
         </div>
         <div>
-          {/* {chart()}
-              {all()} */}
-          {chart()}
+            {GenerateListOfSongs(this.state.songs, this.state.token)}
         </div>
       </div>
     );

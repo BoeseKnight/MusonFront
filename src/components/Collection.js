@@ -1,8 +1,6 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
 import { Text } from "react-native";
-import SplitPane from "react-split-pane";
-import Pane from "./Pane";
 import Link from "@mui/material/Link";
 import { TouchableHighlight, TouchableOpacity, View } from "react-native";
 
