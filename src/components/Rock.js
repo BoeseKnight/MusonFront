@@ -13,10 +13,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import axios from "axios";
 import { borderRadius, getContrastRatio, width } from "@mui/system";
-import SplitPane from "react-split-pane";
 import { Splitter } from "@progress/kendo-react-layout";
 import { Text, TouchableHighlight, TouchableOpacity, View } from "react-native";
-import Pane from "./Pane";
 import Link from "@mui/material/Link";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
@@ -67,8 +65,8 @@ export default class MainPage extends React.Component {
     const audioEl = document.getElementById("audio-element");
     const clickSong = (song) => {
       this.setState({ play: true, pause: false });
-      const data = { songName: song.id };
-      fetch(`http://localhost:8080/stream/${data.songName}`, {
+      const data = { id: song.id };
+      fetch(`http://localhost:8080/stream/${data.id}`, {
         headers: { Authorization: this.state.token },
       })
         .then(function (response) {
@@ -305,7 +303,7 @@ export default class MainPage extends React.Component {
             <h3>Chart</h3>
           </Button>
         </div>
-        <div>{chart()}</div>
+        <div>{chart}</div>
       </div>
     );
   }

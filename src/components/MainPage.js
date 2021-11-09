@@ -13,15 +13,15 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import axios from "axios";
 import { borderRadius, getContrastRatio, width } from "@mui/system";
-import SplitPane from "react-split-pane";
 import { Splitter } from "@progress/kendo-react-layout";
 import { Text, TouchableHighlight, TouchableOpacity, View } from "react-native";
 import Link from "@mui/material/Link";
 import GenerateListOfSongs from "./ListOfSongs";
-import SidePane from "./SidePane"
+import SidePane from "./SidePane";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 // import Helmet from 'react-helmet';
 
 export default class MainPage extends React.Component {
@@ -33,8 +33,8 @@ export default class MainPage extends React.Component {
       songs: [],
       isChart: false,
       isAll: true,
-      pause: true,
-      play: false,
+      pause: false,
+      play: true,
     };
     const headers = { Authorization: this.state.token };
     this.boxRef = React.createRef();
@@ -46,11 +46,13 @@ export default class MainPage extends React.Component {
         });
       });
   }
+
   componentDidMount() {
     if (this.props.active) {
       this.boxRef.current.scrollIntoView();
     }
   }
+
   onPressImage() {
     alert("You tapped the button!");
   }
@@ -61,36 +63,12 @@ export default class MainPage extends React.Component {
     });
   }
 
-  // clickSong(song) {
-  // const audioEl = document.getElementById("audio-element");
-  // const data = { songName: song.id };
-  // fetch(`http://localhost:8080/stream/${data.songName}`, {
-  //   headers: { Authorization: this.state.token },
-  // })
-  //   .then(function (response) {
-  //     return response;
-  //   })
-  //   .then(async function (outcome) {
-  //     const blob = await outcome.blob();
-  //     const url = window.URL.createObjectURL(blob);
-  //     audioEl.src = url;
-  //     audioEl.play();
-  //   });
-  //   alert("gg");
-  // }
-
-  //   pause(){
-  // 	  audioEl.pause();
-  // 	}
   render() {
-
-    const playAudio = () => {
-      document.getElementsByClassName("audio-element").play();
     const audioEl = document.getElementById("audio-element");
     const clickSong = (song) => {
       this.setState({ play: true, pause: false });
-      const data = { songName: song.id };
-      fetch(`http://localhost:8080/stream/${data.songName}`, {
+      const data = { id: song.id };
+      fetch(`http://localhost:8080/stream/${data.id}`, {
         headers: { Authorization: this.state.token },
       })
         .then(function (response) {
@@ -177,55 +155,9 @@ export default class MainPage extends React.Component {
       }
     };
 
-    const chart = () => {
-      if (this.state.isChart) {
-        return this.state.buttonsList.map((song) => {
-          return (
-            <div
-              style={{
-                justifyContent: "center",
-                alignItems: "center",
-                display: "flex",
-                marginLeft: "250px",
-              }}
-            >
-              <Button
-                style={{
-                  whiteSpace: "pre-line",
-                  textAlign: "left",
-                  textTransform: "none",
-                  justifyContent: "left",
-                  alignItems: "left",
-                  color: "#bebec4",
-                  //   background: "#16161a",
-                  width: 500,
-                }}
-                onClick={() => {
-                  clickSong(song);
-                }}
-              >
-                <Text>
-                  <Text style={{ color: "#D9D9D8", fontSize: 16 }}>
-                    {song.song}
-                  </Text>
-                  <Text style={{ color: "#8B8B8C", fontSize: 14 }}>
-                    {"\n"}
-                    {song.artist}
-                  </Text>
-                </Text>
-              </Button>
-              <FavoriteBorderIcon sx={{ color: "pink" }} />
-            </div>
-          );
-        });
-      }
-    };
-
     return (
       <div>
-        <div>
-            {SidePane(this.state.token, this.props)}
-        </div>
+        <div>{SidePane(this.state.token, this.props)}</div>
         <div style={{ display: "flex", marginTop: "100px" }}>
           <div style={{ marginLeft: "250px" }}>
             <div style={{ width: "300px", float: "left" }}>
@@ -240,7 +172,7 @@ export default class MainPage extends React.Component {
               <div>
                 <audio id="audio-element" type="audio/mpeg"></audio>
               </div>
-              <Button
+              {/* <Button
                 variant="contained"
                 size="large"
                 onClick={() => {
@@ -253,7 +185,7 @@ export default class MainPage extends React.Component {
                 }}
               >
                 <h3>PAUSE</h3>
-              </Button>
+              </Button> */}
               {/* <AudioPlayer
                 autoPlay
                 src="http://localhost:8080/stream/NothingButThieves-FreeIfWeWantIt.mp3"
@@ -310,18 +242,14 @@ export default class MainPage extends React.Component {
             justifyContent: "center",
             marginTop: "50px",
           }}
-        >
-          <Button
-            variant="contained"
-            size="large"
-            onClick={chartOnClick}
-            style={{ width: "200px", backgroundColor: "#7f5af0", padding: 0 }}
-          >
-            <h3>Chart</h3>
-          </Button>
-        </div>
+        ></div>
         <div>
-            {GenerateListOfSongs(this.state.songs, this.state.token)}
+          {GenerateListOfSongs(
+            this.state.songs,
+            this.state.token,
+            this.state.play,
+            this.state.pause
+          )}
         </div>
       </div>
     );

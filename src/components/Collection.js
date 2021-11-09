@@ -7,14 +7,14 @@ import { TouchableHighlight, TouchableOpacity, View } from "react-native";
 export default class Collection extends React.Component {
   constructor(props) {
     super(props);
-    this.logoOnCLick = this.logoOnCLick.bind(this)
+    this.logoOnCLick = this.logoOnCLick.bind(this);
     this.state = { token: this.props.location.state.access_token };
   }
-  logoOnCLick () {
-    this.props.history.push('MainPage', {
-            access_token: this.state.token,
+  logoOnCLick() {
+    this.props.history.push("MainPage", {
+      access_token: this.state.token,
     });
-  };
+  }
   render() {
     const artistsOnCLick = () => {
       this.props.history.push("Artists", {
@@ -66,7 +66,7 @@ export default class Collection extends React.Component {
                     <div style={{ float: "left" }}>
                       <img
                         alt="HTML5"
-                        style={{ height: "100px", padding:0, margin:0 }}
+                        style={{ height: "100px" }}
                         src="\images\logotype.png"
                       />
                     </div>
