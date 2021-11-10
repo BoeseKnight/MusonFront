@@ -154,6 +154,16 @@ export default class MainPage extends React.Component {
     return (
       <div>
         <div>{SidePane(this.state.token, this.props)}</div>
+        <div
+          style={{
+            position: "fixed",
+            margin: "10px",
+            top: "0",
+            right: "0",
+          }}
+        >
+          <audio controls id="audio-element" type="audio/mpeg"></audio>
+        </div>
         <div style={{ display: "flex", marginTop: "100px" }}>
           <div style={{ marginLeft: "250px" }}>
             <div style={{ width: "300px", float: "left" }}>
@@ -165,9 +175,7 @@ export default class MainPage extends React.Component {
                 style={{ height: "250px", borderRadius: "10px" }}
                 src="\images\rap.jpg"
               />
-              <div>
-                <audio id="audio-element" type="audio/mpeg"></audio>
-              </div>
+
               {/* <Button
                 variant="contained"
                 size="large"

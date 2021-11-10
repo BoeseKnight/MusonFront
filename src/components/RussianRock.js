@@ -266,29 +266,16 @@ export default class MainPage extends React.Component {
         <div style={{ display: "flex", marginTop: "100px" }}>
           <div style={{ marginLeft: "250px" }}>
             <div style={{ width: "300px", float: "left" }}>
-              <div>
-                <audio id="audio-element" type="audio/mpeg"></audio>
-              </div>
-              <Button
-                variant="contained"
-                size="large"
-                onClick={() => {
-                  pause();
-                }}
+              <div
                 style={{
-                  width: "200px",
-                  backgroundColor: "#7f5af0",
-                  padding: 0,
+                  position: "fixed",
+                  margin: "10px",
+                  top: "0",
+                  right: "0",
                 }}
               >
-                <h3>PAUSE</h3>
-              </Button>
-              {/* <AudioPlayer
-                autoPlay
-                src="http://localhost:8080/stream/NothingButThieves-FreeIfWeWantIt.mp3"
-                onPlay={(e) => console.log("onPlay")}
-                // other props here
-              /> */}
+                <audio controls id="audio-element" type="audio/mpeg"></audio>
+              </div>
             </div>
           </div>
         </div>
