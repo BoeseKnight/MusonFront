@@ -30,12 +30,14 @@ export default class MainPage extends React.Component {
     this.logoOnCLick = this.logoOnCLick.bind(this);
     this.state = {
       token: this.props.location.state.access_token,
+      username: this.props.location.state.username,
       songs: [],
       isChart: false,
       isAll: true,
       pause: false,
       play: true,
     };
+    console.log(this.state.username);
     const headers = { Authorization: this.state.token };
     this.boxRef = React.createRef();
     fetch("http://localhost:8080/showAllSongs", { headers })
@@ -153,7 +155,7 @@ export default class MainPage extends React.Component {
 
     return (
       <div>
-        <div>{SidePane(this.state.token, this.props)}</div>
+        <div>{SidePane(this.state.token, this.state.username, this.props)}</div>
         <div
           style={{
             position: "fixed",
