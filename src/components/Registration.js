@@ -11,6 +11,10 @@ import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
+import { typographyVariant } from "@mui/system";
+import { fabClasses } from "@mui/material";
+import { useHistory } from "react-router-dom";
+
 // import Helmet from 'react-helmet';
 
 const Search = styled("div")(({ theme }) => ({
@@ -57,25 +61,53 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function Registration() {
   const [name, setName] = useState("");
+  let history = useHistory();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
+  var match = true;
+  var message;
+  var otvet2;
+  const [otvet, setOtvet] = useState();
+
+  const matching = () => {
+    if (repeatPassword != password) {
+      alert("Entered passwords mismatch");
+      match = false;
+    }
+    console.log(match);
+  };
+
+  const getData = (data) => {
+    if (data == "This username has already taken by another user.") {
+      alert("This username has already taken by another user.");
+    } else {
+      alert("Registration passed successfully");
+      history.push("/Login");
+    }
+    console.log(data);
+  };
   const handleClick = (e) => {
+    matching();
     e.preventDefault();
-    const user = { name, username, password };
-    console.log(user);
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("username", username);
-    formData.append("password", password);
-    fetch("http://localhost:8080/api/registration", {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => response.text())
-      .then((response) => {
-        console.log(response);
+    if (match) {
+      const user = { name, username, password };
+      console.log(user);
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("username", username);
+      formData.append("password", password);
+      fetch("http://localhost:8080/api/registration", {
+        method: "POST",
+        body: formData,
       })
-      .catch((err) => console.log(err));
+        .then((response) => response.text())
+        .then((data) => getData(data))
+        // .then(() => setOtvet(message))
+        .catch((err) => console.log(err));
+      match = true;
+    }
   };
 
   return (
@@ -132,11 +164,27 @@ export default function Registration() {
               }}
               focused
               id="outlined-basic"
-              label="Password"
+              label="Create a password"
               variant="outlined"
               value={password}
               sx={{ width: "50ch" }}
               onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <div style={{ marginBottom: "30px" }}>
+            <TextField
+              InputProps={{
+                style: {
+                  color: "white",
+                },
+              }}
+              focused
+              id="outlined-basic"
+              label="Enter a password again"
+              variant="outlined"
+              value={repeatPassword}
+              sx={{ width: "50ch" }}
+              onChange={(e) => setRepeatPassword(e.target.value)}
             />
           </div>
           <Button variant="contained" size="large" onClick={handleClick}>
