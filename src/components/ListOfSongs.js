@@ -1,10 +1,6 @@
 import Button from "@mui/material/Button";
 import { Text, TouchableHighlight, View } from "react-native";
 import * as React from "react";
-import Link from "@mui/material/Link";
-import FavoriteIcon from "@mui/icons-material/FavoriteBorder";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import { pink } from "@mui/material/colors";
 import { AiFillHeart } from "react-icons/ai";
 import { IoHeartDislikeSharp } from "react-icons/io5";
 
@@ -60,7 +56,6 @@ export default function GenerateListOfSongs(songs, token, play, pause) {
           marginLeft: "250px",
         }}
       >
-        {/* <PlayArrowIcon /> */}
         <Button
           style={{
             whiteSpace: "pre-line",
@@ -69,7 +64,6 @@ export default function GenerateListOfSongs(songs, token, play, pause) {
             justifyContent: "left",
             alignItems: "left",
             color: "#bebec4",
-            //   background: "#16161a",
             width: 500,
           }}
           onClick={() => clickSong(song, token, play, pause)}

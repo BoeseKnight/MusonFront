@@ -1,15 +1,15 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
-import { Text } from "react-native";
-import Link from "@mui/material/Link";
-import { TouchableHighlight, TouchableOpacity, View } from "react-native";
 import SidePane from "./SidePane";
 
 export default class Genres extends React.Component {
   constructor(props) {
     super(props);
     this.logoOnCLick = this.logoOnCLick.bind(this);
-    this.state = { token: this.props.location.state.access_token,username: this.props.location.state.username, genres: [] };
+    this.state = {
+      token: this.props.location.state.access_token,
+      username: this.props.location.state.username,
+      genres: [],
+    };
     fetch("http://localhost:8080/api/getAllGenres", {
       method: "GET",
       headers: {
@@ -19,7 +19,6 @@ export default class Genres extends React.Component {
       .then((response) => response.json())
       .then((data) => {
         console.log("Data is: " + data);
-        //this.state.genres.push(genre);
         this.setState({ genres: data });
       })
       .catch((error) => console.error("Error:", error));
@@ -34,7 +33,7 @@ export default class Genres extends React.Component {
       this.props.history.push("GenrePage", {
         access_token: this.state.token,
         genre_name: genreName,
-        username: username
+        username: username,
       });
     };
     return (

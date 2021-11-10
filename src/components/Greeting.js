@@ -1,7 +1,6 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
-import { width } from "@mui/system";
 
 export default function Greeting() {
   const handleClick = (e) => {};

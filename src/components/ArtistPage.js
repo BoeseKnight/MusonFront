@@ -1,15 +1,13 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
-import { Text } from "react-native";
 import GenerateListOfSongs from "./ListOfSongs";
 import SidePane from "./SidePane";
-import Link from "@mui/material/Link";
 
 export default class ArtistPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      token: this.props.location.state.access_token,username: this.props.location.state.username,
+      token: this.props.location.state.access_token,
+      username: this.props.location.state.username,
       artistName: this.props.location.state.artist_name,
       songs: [],
     };

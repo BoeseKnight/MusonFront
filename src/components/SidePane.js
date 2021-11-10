@@ -5,28 +5,28 @@ import * as React from "react";
 const logoOnCLick = (token, props, username) => {
   props.history.push("MainPage", {
     access_token: token,
-      username: username,
+    username: username,
   });
 };
 
 const genresOnCLick = (token, props, username) => {
   props.history.push("Genres", {
     access_token: token,
-      username: username,
+    username: username,
   });
 };
 
 const collectionOnCLick = (token, props, username) => {
   props.history.push("Collection", {
     access_token: token,
-      username: username,
+    username: username,
   });
 };
 
 const artistsOnCLick = (token, props, username) => {
   props.history.push("Artists", {
     access_token: token,
-      username: username,
+    username: username,
   });
 };
 
@@ -123,57 +123,6 @@ export default function sidePane(token, username, props) {
             }}
           >
             <h4>Genres</h4>
-          </Link>
-        </li>
-        <li>
-          <Link
-            style={{
-              color: "white",
-              fontSize: "14pt",
-              margin: "20px",
-              height: "2px",
-            }}
-            underline="none"
-            component="button"
-            onClick={() => {
-              likedSongsOnCLick(token, props);
-            }}
-          >
-            <h4>Liked Songs</h4>
-          </Link>
-        </li>
-        <li>
-          <Link
-            style={{
-              color: "white",
-              fontSize: "14pt",
-              margin: "20px",
-              height: "2px",
-            }}
-            underline="none"
-            component="button"
-            onClick={() => {
-              dislikedSongsOnCLick(token, props);
-            }}
-          >
-            <h4>Disliked Songs</h4>
-          </Link>
-        </li>
-        <li>
-          <Link
-            style={{
-              color: "white",
-              fontSize: "14pt",
-              margin: "20px",
-              height: "2px",
-            }}
-            underline="none"
-            component="button"
-            onClick={() => {
-              recommendedPlaylistOnCLick(token, props);
-            }}
-          >
-            <h4>Recommended Playlist</h4>
           </Link>
         </li>
       </ul>
