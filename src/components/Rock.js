@@ -27,7 +27,7 @@ export default class MainPage extends React.Component {
     super(props);
     this.logoOnCLick = this.logoOnCLick.bind(this);
     this.state = {
-      token: this.props.location.state.access_token,
+      token: this.props.location.state.access_token,username: this.props.location.state.username,
       buttonsList: [],
       isChart: false,
       isAll: true,
@@ -165,7 +165,7 @@ export default class MainPage extends React.Component {
     };
     return (
       <div>
-        <div>{SidePane(this.state.token, this.props)}</div>
+        <div>{SidePane(this.state.token, this.state.username, this.props)}</div>
         <div style={{ display: "flex", marginTop: "100px" }}>
           <div style={{ marginLeft: "250px" }}>
             <div style={{ width: "300px", float: "left" }}>

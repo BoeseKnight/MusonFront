@@ -9,7 +9,7 @@ export default class Genres extends React.Component {
   constructor(props) {
     super(props);
     this.logoOnCLick = this.logoOnCLick.bind(this);
-    this.state = { token: this.props.location.state.access_token, genres: [] };
+    this.state = { token: this.props.location.state.access_token,username: this.props.location.state.username, genres: [] };
     fetch("http://localhost:8080/api/getAllGenres", {
       method: "GET",
       headers: {
@@ -30,15 +30,16 @@ export default class Genres extends React.Component {
     });
   }
   render() {
-    const onPressImage = (genreName) => {
+    const onPressImage = (genreName, username) => {
       this.props.history.push("GenrePage", {
         access_token: this.state.token,
         genre_name: genreName,
+        username: username
       });
     };
     return (
       <div>
-        <div>{SidePane(this.state.token, this.props)}</div>
+        <div>{SidePane(this.state.token, this.state.username, this.props)}</div>
         <div style={{ display: "flex", marginTop: "50px" }}>
           <div style={{ marginLeft: "250px" }}>
             {this.state.genres.map((genre) => {
@@ -46,7 +47,7 @@ export default class Genres extends React.Component {
                 <div style={{ width: "300px", float: "left" }}>
                   <img
                     onClick={() => {
-                      onPressImage(genre.genre);
+                      onPressImage(genre.genre, this.state.username);
                     }}
                     alt="HTML5"
                     style={{ height: "250px", borderRadius: "10px" }}

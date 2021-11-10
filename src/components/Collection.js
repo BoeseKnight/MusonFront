@@ -3,12 +3,29 @@ import Button from "@mui/material/Button";
 import { Text } from "react-native";
 import Link from "@mui/material/Link";
 import { TouchableHighlight, TouchableOpacity, View } from "react-native";
+import SidePane from "./SidePane"
+import GenerateListOfSongs from "./ListOfSongs";
 
 export default class Collection extends React.Component {
   constructor(props) {
     super(props);
     this.logoOnCLick = this.logoOnCLick.bind(this);
-    this.state = { token: this.props.location.state.access_token };
+    this.state = { token: this.props.location.state.access_token, pause: false,
+      play: true, username: this.props.location.state.username, likedSongs:[] };
+    fetch("http://localhost:8080/api/getLikedSongs?username=" + this.state.username, {
+      method: "GET",
+      headers: {
+        Authorization: this.state.token,
+      },
+    })
+        .then((response) => response.json())
+        .then((data) => {
+          this.setState({ likedSongs: data }, () => {
+            console.log("After fetch in collection");
+            console.log(this.state.likedSongs);
+          });
+        })
+        .catch((error) => console.error("Error:", error));
   }
   logoOnCLick() {
     this.props.history.push("MainPage", {
@@ -39,99 +56,25 @@ export default class Collection extends React.Component {
     };
     return (
       <div>
-        <div
-          style={{
-            height: "100%",
-            position: "fixed",
-            backgroundColor: "#010101",
-            width: "250px",
-            alignItems: "left",
-            display: "flex",
-            top: "0",
-            left: "0",
-          }}
-        >
-          <ul
-            style={{
-              listStyleType: "none",
-              marginTop: "0px",
-              padding: "0px",
-              textAlign: "left",
-            }}
-          >
-            <li>
-              <TouchableHighlight activeOpacity={1} onPress={this.logoOnCLick}>
-                <View>
-                  <div className="logo" style={{ margin: "10px" }}>
-                    <div style={{ float: "left" }}>
-                      <img
-                        alt="HTML5"
-                        style={{ height: "100px" }}
-                        src="\images\logotype.png"
-                      />
-                    </div>
-                    <div style={{ float: "left" }}>
-                      <h1 style={{ fontSize: "25pt", color: "white" }}>
-                        MusON
-                      </h1>
-                    </div>
-                  </div>
-                </View>
-              </TouchableHighlight>
-            </li>
-            <li>
-              <Link
-                style={{
-                  color: "white",
-                  fontSize: "14pt",
-                  margin: "20px",
-                  height: "2px",
-                }}
-                underline="none"
-                component="button"
-                onClick={() => {
-                  collectionOnCLick();
-                }}
-              >
-                <h4>Collection</h4>
-              </Link>
-            </li>
-            <li>
-              <Link
-                style={{
-                  color: "white",
-                  fontSize: "14pt",
-                  margin: "20px",
-                  height: "2px",
-                }}
-                underline="none"
-                component="button"
-                onClick={() => {
-                  artistsOnCLick();
-                }}
-              >
-                <h4>Artists</h4>
-              </Link>
-            </li>
-            <li>
-              <Link
-                style={{
-                  color: "white",
-                  fontSize: "14pt",
-                  margin: "20px",
-                  height: "2px",
-                }}
-                underline="none"
-                component="button"
-                onClick={() => {
-                  genresOnCLick();
-                }}
-              >
-                <h4>Genres</h4>
-              </Link>
-            </li>
-          </ul>
+        {console.log("In collection")}
+        {console.log(this.state.token)}
+        {console.log(this.state.username)}
+        <div>
+            {SidePane(this.state.token, this.state.username, this.props)}
         </div>
+        <div
+            style={{
+              position: "fixed",
+              margin: "10px",
+              top: "0",
+              right: "0",
+            }}
+        >
+          <audio controls id="audio-element" type="audio/mpeg"></audio>
+        </div>
+          <div>
+              {GenerateListOfSongs(this.state.likedSongs, this.state.token, this.state.play, this.state.pause)}
+          </div>
       </div>
     );
   }

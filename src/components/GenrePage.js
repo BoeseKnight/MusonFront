@@ -9,7 +9,7 @@ export default class GenrePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      token: this.props.location.state.access_token,
+      token: this.props.location.state.access_token,username: this.props.location.state.username,
       genreName: this.props.location.state.genre_name,
       songs: [],
     };
@@ -32,7 +32,7 @@ export default class GenrePage extends React.Component {
   render() {
     return (
       <div>
-        <div>{SidePane(this.state.token, this.props)}</div>
+        <div>{SidePane(this.state.token, this.state.username, this.props)}</div>
         <div
           style={{
             position: "fixed",

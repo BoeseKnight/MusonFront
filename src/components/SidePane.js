@@ -2,31 +2,35 @@ import { TouchableHighlight, View } from "react-native";
 import Link from "@mui/material/Link";
 import * as React from "react";
 
-const logoOnCLick = (token, props) => {
+const logoOnCLick = (token, props, username) => {
   props.history.push("MainPage", {
     access_token: token,
+      username: username,
   });
 };
 
-const genresOnCLick = (token, props) => {
+const genresOnCLick = (token, props, username) => {
   props.history.push("Genres", {
     access_token: token,
+      username: username,
   });
 };
 
-const collectionOnCLick = (token, props) => {
+const collectionOnCLick = (token, props, username) => {
   props.history.push("Collection", {
     access_token: token,
+      username: username,
   });
 };
 
-const artistsOnCLick = (token, props) => {
+const artistsOnCLick = (token, props, username) => {
   props.history.push("Artists", {
     access_token: token,
+      username: username,
   });
 };
 
-export default function sidePane(token, props) {
+export default function sidePane(token, username, props) {
   return (
     <div
       style={{
@@ -51,7 +55,7 @@ export default function sidePane(token, props) {
         <li>
           <TouchableHighlight
             activeOpacity={1}
-            onPress={() => logoOnCLick(token, props)}
+            onPress={() => logoOnCLick(token, props, username)}
           >
             <View>
               <div className="logo" style={{ margin: "10px" }}>
@@ -80,7 +84,8 @@ export default function sidePane(token, props) {
             underline="none"
             component="button"
             onClick={() => {
-              collectionOnCLick(token, props);
+              collectionOnCLick(token, props, username);
+              console.log(username);
             }}
           >
             <h4>Collection</h4>
@@ -97,7 +102,7 @@ export default function sidePane(token, props) {
             underline="none"
             component="button"
             onClick={() => {
-              artistsOnCLick(token, props);
+              artistsOnCLick(token, props, username);
             }}
           >
             <h4>Artists</h4>
@@ -114,7 +119,7 @@ export default function sidePane(token, props) {
             underline="none"
             component="button"
             onClick={() => {
-              genresOnCLick(token, props);
+              genresOnCLick(token, props, username);
             }}
           >
             <h4>Genres</h4>

@@ -86,6 +86,7 @@ export default class Login extends React.Component {
           if (data.access_token != null) {
             this.props.history.push("MainPage", {
               access_token: "Bearer " + data.access_token,
+              username: this.state.username,
             });
           }
         })
