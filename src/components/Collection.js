@@ -62,6 +62,16 @@ export default class Collection extends React.Component {
         <div>
             {SidePane(this.state.token, this.state.username, this.props)}
         </div>
+        <div
+            style={{
+              position: "fixed",
+              margin: "10px",
+              top: "0",
+              right: "0",
+            }}
+        >
+          <audio controls id="audio-element" type="audio/mpeg"></audio>
+        </div>
           <div>
               {GenerateListOfSongs(this.state.likedSongs, this.state.token, this.state.play, this.state.pause)}
           </div>
