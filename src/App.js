@@ -5,6 +5,7 @@ import Greeting from "./components/Greeting";
 import MainPage from "./components/MainPage";
 import Artists from "./components/Artists";
 import Genres from "./components/Genres";
+
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 import { ReactDOM } from "react";
 import { useState } from "react";
@@ -30,7 +31,6 @@ function App() {
           <Route path="/genres" component={Genres} />
           <Route path="/collection" component={Collection} />
           <Route path="/artistPage" component={ArtistPage} />
-
           <Route path="/genrePage" component={GenrePage} />
           <Route path="/rock" component={Rock} />
           <Route path="/pop" component={Pop} />

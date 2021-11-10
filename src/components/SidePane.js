@@ -120,6 +120,57 @@ export default function sidePane(token, props) {
             <h4>Genres</h4>
           </Link>
         </li>
+        <li>
+          <Link
+            style={{
+              color: "white",
+              fontSize: "14pt",
+              margin: "20px",
+              height: "2px",
+            }}
+            underline="none"
+            component="button"
+            onClick={() => {
+              likedSongsOnCLick(token, props);
+            }}
+          >
+            <h4>Liked Songs</h4>
+          </Link>
+        </li>
+        <li>
+          <Link
+            style={{
+              color: "white",
+              fontSize: "14pt",
+              margin: "20px",
+              height: "2px",
+            }}
+            underline="none"
+            component="button"
+            onClick={() => {
+              dislikedSongsOnCLick(token, props);
+            }}
+          >
+            <h4>Disliked Songs</h4>
+          </Link>
+        </li>
+        <li>
+          <Link
+            style={{
+              color: "white",
+              fontSize: "14pt",
+              margin: "20px",
+              height: "2px",
+            }}
+            underline="none"
+            component="button"
+            onClick={() => {
+              recommendedPlaylistOnCLick(token, props);
+            }}
+          >
+            <h4>Recommended Playlist</h4>
+          </Link>
+        </li>
       </ul>
     </div>
   );
