@@ -4,9 +4,7 @@ import * as React from "react";
 import { AiFillHeart } from "react-icons/ai";
 import { IoHeartDislikeSharp } from "react-icons/io5";
 
-const clickSong = (song, token, play, pause) => {
-  play = true;
-  pause = false;
+const clickSong = (song, token) => {
   const audioEl = document.getElementById("audio-element");
   const data = { id: song.id };
   fetch(`http://localhost:8080/stream/${data.id}`, {
@@ -45,7 +43,7 @@ const dislikeOnClick = (song, token) => {
   }).catch((error) => console.error("Error:", error));
 };
 
-export default function GenerateListOfSongs(songs, token, play, pause) {
+export default function GenerateListOfSongs(songs, token) {
   return songs.map((song, index) => {
     return (
       <div
@@ -66,7 +64,7 @@ export default function GenerateListOfSongs(songs, token, play, pause) {
             color: "#bebec4",
             width: 500,
           }}
-          onClick={() => clickSong(song, token, play, pause)}
+          onClick={() => clickSong(song, token)}
         >
           <Text>
             <Text style={{ color: "#D9D9D8", fontSize: 16 }}>{song.song}</Text>
@@ -85,9 +83,9 @@ export default function GenerateListOfSongs(songs, token, play, pause) {
           style={{ fontSize: "28px", marginLeft: "10px" }}
           onClick={() => dislikeOnClick(song, token)}
         />
-        <div>
+        {/* <div>
           <audio id="audio-element" type="audio/mpeg"></audio>
-        </div>
+        </div> */}
       </div>
     );
   });

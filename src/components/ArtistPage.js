@@ -32,17 +32,30 @@ export default class ArtistPage extends React.Component {
     return (
       <div>
         <div>{SidePane(this.state.token, this.state.username, this.props)}</div>
+        <div>{GenerateListOfSongs(this.state.songs, this.state.token)}</div>
         <div
           style={{
             position: "fixed",
-            margin: "10px",
-            top: "0",
-            right: "0",
+            marginLeft: "250px",
+            padding: "5px",
+            backgroundColor: "#111113",
+            // margin: "10px",
+            display: "block",
+            overflow: "hidden",
+            // width: "100%",
+            bottom: "0",
+            left: 0.5,
+            right: 0.5,
+            // right: "0",
           }}
         >
-          <audio controls id="audio-element" type="audio/mpeg"></audio>
+          <audio
+            style={{ width: "600px" }}
+            controls
+            id="audio-element"
+            type="audio/mpeg"
+          ></audio>
         </div>
-        <div>{GenerateListOfSongs(this.state.songs, this.state.token)}</div>
       </div>
     );
   }

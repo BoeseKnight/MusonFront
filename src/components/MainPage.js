@@ -69,18 +69,9 @@ export default class MainPage extends React.Component {
     };
 
     return (
-      <div>
+      <div style={{ marginBottom: "100px" }}>
         <div>{SidePane(this.state.token, this.state.username, this.props)}</div>
-        <div
-          style={{
-            position: "fixed",
-            margin: "10px",
-            top: "0",
-            right: "0",
-          }}
-        >
-          <audio controls id="audio-element" type="audio/mpeg"></audio>
-        </div>
+
         <div style={{ display: "flex", marginTop: "100px" }}>
           <div style={{ marginLeft: "250px" }}>
             <div style={{ width: "300px", float: "left" }}>
@@ -135,15 +126,31 @@ export default class MainPage extends React.Component {
             </div>
           </div>
         </div>
+
+        <div>{GenerateListOfSongs(this.state.songs, this.state.token)}</div>
         <div
           style={{
-            display: "flex",
+            position: "fixed",
             marginLeft: "250px",
-            justifyContent: "center",
-            marginTop: "50px",
+            padding: "5px",
+            backgroundColor: "#111113",
+            // margin: "10px",
+            display: "block",
+            overflow: "hidden",
+            // width: "100%",
+            bottom: "0",
+            left: 0.5,
+            right: 0.5,
+            // right: "0",
           }}
-        ></div>
-        <div>{GenerateListOfSongs(this.state.songs, this.state.token)}</div>
+        >
+          <audio
+            style={{ width: "600px" }}
+            controls
+            id="audio-element"
+            type="audio/mpeg"
+          ></audio>
+        </div>
       </div>
     );
   }
