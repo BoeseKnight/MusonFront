@@ -16,6 +16,8 @@ import Rock from "./components/Rock";
 import Pop from "./components/Pop";
 import Rap from "./components/Rap";
 import RussianRock from "./components/RussianRock";
+import Search from "./components/Search";
+import RecommendedPlaylist from "./components/RecommendedPlaylist";
 
 function App() {
   const [token, setToken] = useState("");
@@ -35,7 +37,9 @@ function App() {
           <Route path="/rock" component={Rock} />
           <Route path="/pop" component={Pop} />
           <Route path="/rap" component={Rap} />
-          <Route path="/russianRock" component={RussianRock} />S
+          <Route path="/russianRock" component={RussianRock} />
+          <Route path="/recommendedPlaylist" component={RecommendedPlaylist} />
+          <Route path="/search" component={Search} />
         </Switch>
       </div>
     </Router>

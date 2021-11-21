@@ -78,14 +78,13 @@ export default class MainPage extends React.Component {
             marginLeft: "250px",
             padding: "5px",
             backgroundColor: "#111113",
-            // margin: "10px",
+
             display: "block",
             overflow: "hidden",
-            // width: "100%",
+
             bottom: "0",
             left: 0.5,
             right: 0.5,
-            // right: "0",
           }}
         >
           <audio

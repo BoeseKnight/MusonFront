@@ -1,6 +1,7 @@
 import * as React from "react";
 import GenerateListOfSongs from "./ListOfSongs";
 import SidePane from "./SidePane";
+import Button from "@mui/material/Button";
 
 export default class MainPage extends React.Component {
   constructor(props) {
@@ -75,53 +76,84 @@ export default class MainPage extends React.Component {
         <div style={{ display: "flex", marginTop: "100px" }}>
           <div style={{ marginLeft: "250px" }}>
             <div style={{ width: "300px", float: "left" }}>
-              <img
-                onClick={() => {
-                  onPressRap();
+              <Button
+                sx={{
+                  "&:hover": {
+                    opacity: 0.5,
+                  },
                 }}
-                alt="HTML5"
-                style={{ height: "250px", borderRadius: "10px" }}
-                src="\images\rap.jpg"
-              />
+              >
+                <img
+                  onClick={() => {
+                    onPressRap();
+                  }}
+                  alt="HTML5"
+                  style={{ height: "250px", borderRadius: "10px" }}
+                  src="\images\rap.jpg"
+                />
+              </Button>
               <h2 style={{ margin: "0" }}>RAP</h2>
             </div>
             <div style={{ width: "300px", float: "left" }}>
-              <img
-                onClick={() => {
-                  onPressRock();
+              <Button
+                sx={{
+                  "&:hover": {
+                    opacity: 0.5,
+                  },
                 }}
-                alt="HTML5"
-                style={{
-                  height: "250px",
-                  backgroundColor: "gray",
-                  borderRadius: "10px",
-                }}
-                src="\images\rock.png"
-              />
+              >
+                <img
+                  onClick={() => {
+                    onPressRock();
+                  }}
+                  alt="HTML5"
+                  style={{
+                    height: "250px",
+                    backgroundColor: "gray",
+                    borderRadius: "10px",
+                  }}
+                  src="\images\rock.png"
+                />
+              </Button>
 
               <h2 style={{ margin: "0" }}>ROCK</h2>
             </div>
             <div style={{ width: "300px", float: "left" }}>
-              <img
-                onClick={() => {
-                  onPressPop();
+              <Button
+                sx={{
+                  "&:hover": {
+                    opacity: 0.5,
+                  },
                 }}
-                alt="HTML5"
-                style={{ height: "250px", borderRadius: "10px" }}
-                src="\images\pop.jpg"
-              />
-
+              >
+                <img
+                  onClick={() => {
+                    onPressPop();
+                  }}
+                  alt="HTML5"
+                  style={{ height: "250px", borderRadius: "10px" }}
+                  src="\images\pop.jpg"
+                />
+              </Button>
               <h2 style={{ margin: "0" }}>POP</h2>
             </div>
             <div style={{ width: "300px", float: "left" }}>
-              <img
-                onClick={() => {
-                  onPressRussianRock();
+              <Button
+                sx={{
+                  "&:hover": {
+                    opacity: 0.5,
+                  },
                 }}
-                alt="HTML5"
-                style={{ width: "250px", borderRadius: "10px" }}
-                src="\images\rusrock.jpg"
-              />
+              >
+                <img
+                  onClick={() => {
+                    onPressRussianRock();
+                  }}
+                  alt="HTML5"
+                  style={{ width: "250px", borderRadius: "10px" }}
+                  src="\images\rusrock.jpg"
+                />
+              </Button>
               <h2 style={{ margin: "0" }}>RUSSIAN ROCK</h2>
             </div>
           </div>
@@ -134,14 +166,13 @@ export default class MainPage extends React.Component {
             marginLeft: "250px",
             padding: "5px",
             backgroundColor: "#111113",
-            // margin: "10px",
+
             display: "block",
             overflow: "hidden",
-            // width: "100%",
+
             bottom: "0",
             left: 0.5,
             right: 0.5,
-            // right: "0",
           }}
         >
           <audio

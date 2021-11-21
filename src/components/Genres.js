@@ -1,5 +1,6 @@
 import * as React from "react";
 import SidePane from "./SidePane";
+import Button from "@mui/material/Button";
 
 export default class Genres extends React.Component {
   constructor(props) {
@@ -44,14 +45,22 @@ export default class Genres extends React.Component {
             {this.state.genres.map((genre) => {
               return (
                 <div style={{ width: "300px", float: "left" }}>
-                  <img
-                    onClick={() => {
-                      onPressImage(genre.genre, this.state.username);
+                  <Button
+                    sx={{
+                      "&:hover": {
+                        opacity: 0.5,
+                      },
                     }}
-                    alt="HTML5"
-                    style={{ height: "250px", borderRadius: "10px" }}
-                    src={genre.pathToImage}
-                  />
+                  >
+                    <img
+                      onClick={() => {
+                        onPressImage(genre.genre, this.state.username);
+                      }}
+                      alt="HTML5"
+                      style={{ height: "250px", borderRadius: "10px" }}
+                      src={genre.pathToImage}
+                    />
+                  </Button>
                   {console.log(genre.pathToImage)}
                   <h2
                     style={{

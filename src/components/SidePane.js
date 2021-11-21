@@ -30,6 +30,20 @@ const artistsOnCLick = (token, props, username) => {
   });
 };
 
+const searchOnCLick = (token, props, username) => {
+  props.history.push("Search", {
+    access_token: token,
+    username: username,
+  });
+};
+
+const recsOnCLick = (token, props, username) => {
+  props.history.push("RecommendedPlaylist", {
+    access_token: token,
+    username: username,
+  });
+};
+
 export default function sidePane(token, username, props) {
   return (
     <div
@@ -81,6 +95,11 @@ export default function sidePane(token, username, props) {
               margin: "20px",
               height: "2px",
             }}
+            sx={{
+              "&:hover": {
+                opacity: 0.5,
+              },
+            }}
             underline="none"
             component="button"
             onClick={() => {
@@ -99,6 +118,11 @@ export default function sidePane(token, username, props) {
               margin: "20px",
               height: "2px",
             }}
+            sx={{
+              "&:hover": {
+                opacity: 0.5,
+              },
+            }}
             underline="none"
             component="button"
             onClick={() => {
@@ -116,6 +140,11 @@ export default function sidePane(token, username, props) {
               margin: "20px",
               height: "2px",
             }}
+            sx={{
+              "&:hover": {
+                opacity: 0.5,
+              },
+            }}
             underline="none"
             component="button"
             onClick={() => {
@@ -123,6 +152,50 @@ export default function sidePane(token, username, props) {
             }}
           >
             <h4>Genres</h4>
+          </Link>
+        </li>
+        <li>
+          <Link
+            style={{
+              color: "white",
+              fontSize: "14pt",
+              margin: "20px",
+              height: "2px",
+            }}
+            sx={{
+              "&:hover": {
+                opacity: 0.5,
+              },
+            }}
+            underline="none"
+            component="button"
+            onClick={() => {
+              recsOnCLick(token, props, username);
+            }}
+          >
+            <h4>Recommended Playlist</h4>
+          </Link>
+        </li>
+        <li>
+          <Link
+            style={{
+              color: "white",
+              fontSize: "14pt",
+              margin: "20px",
+              height: "2px",
+            }}
+            sx={{
+              "&:hover": {
+                opacity: 0.5,
+              },
+            }}
+            underline="none"
+            component="button"
+            onClick={() => {
+              searchOnCLick(token, props, username);
+            }}
+          >
+            <h4>Search</h4>
           </Link>
         </li>
       </ul>
