@@ -1,5 +1,6 @@
 import * as React from "react";
 import SidePane from "./SidePane";
+import Button from "@mui/material/Button";
 
 export default class Artists extends React.Component {
   constructor(props) {
@@ -41,20 +42,37 @@ export default class Artists extends React.Component {
     return (
       <div>
         <div>{SidePane(this.state.token, this.state.username, this.props)}</div>
-        <div style={{ display: "flex", marginTop: "100px" }}>
+        <div style={{ display: "flex", marginTop: "50px" }}>
           <div style={{ marginLeft: "250px" }}>
             {this.state.artists.map((artist) => {
               return (
                 <div style={{ width: "300px", float: "left" }}>
-                  <img
-                    onClick={() => {
-                      onPressImage(artist.artist, this.state.username);
+                  <Button
+                    sx={{
+                      "&:hover": {
+                        opacity: 0.5,
+                      },
                     }}
-                    alt="HTML5"
-                    style={{ height: "250px", borderRadius: "10px" }}
-                    src={artist.pathToImage}
-                  />
-                  <h2 style={{ margin: "0" }}>{artist.artist}</h2>
+                  >
+                    <img
+                      onClick={() => {
+                        onPressImage(artist.artist, this.state.username);
+                      }}
+                      alt="HTML5"
+                      style={{ height: "250px", borderRadius: "10px" }}
+                      src={artist.pathToImage}
+                    />
+                  </Button>
+                  <h2
+                    style={{
+                      marginBottom: "10px",
+                      marginTop: "0",
+                      marginLeft: "0",
+                      marginRight: "0",
+                    }}
+                  >
+                    {artist.artist}
+                  </h2>
                 </div>
               );
             })}

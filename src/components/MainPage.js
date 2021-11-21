@@ -73,7 +73,7 @@ export default class MainPage extends React.Component {
       <div style={{ marginBottom: "100px" }}>
         <div>{SidePane(this.state.token, this.state.username, this.props)}</div>
 
-        <div style={{ display: "flex", marginTop: "100px" }}>
+        <div style={{ display: "flex", marginTop: "50px" }}>
           <div style={{ marginLeft: "250px" }}>
             <div style={{ width: "300px", float: "left" }}>
               <Button

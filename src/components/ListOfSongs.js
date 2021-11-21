@@ -74,15 +74,30 @@ export default function GenerateListOfSongs(songs, token) {
             </Text>
           </Text>
         </Button>
-
-        <AiFillHeart
-          style={{ color: "#7f5af0", fontSize: "28px" }}
-          onClick={() => likeOnClick(song, token)}
-        />
-        <IoHeartDislikeSharp
-          style={{ fontSize: "28px", marginLeft: "10px" }}
-          onClick={() => dislikeOnClick(song, token)}
-        />
+        <Button
+          sx={{
+            "&:hover": {
+              opacity: 0.5,
+            },
+          }}
+        >
+          <AiFillHeart
+            style={{ color: "#7f5af0", fontSize: "28px" }}
+            onClick={() => likeOnClick(song, token)}
+          />
+        </Button>
+        <Button
+          sx={{
+            "&:hover": {
+              opacity: 0.5,
+            },
+          }}
+        >
+          <IoHeartDislikeSharp
+            style={{ fontSize: "28px", size: "10", color: "white" }}
+            onClick={() => dislikeOnClick(song, token)}
+          />
+        </Button>
         {/* <div>
           <audio id="audio-element" type="audio/mpeg"></audio>
         </div> */}
