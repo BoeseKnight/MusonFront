@@ -9,29 +9,28 @@ export default class Search extends React.Component {
     super(props);
     this.logoOnCLick = this.logoOnCLick.bind(this);
     this.state = {
+      searchParam: null,
       token: this.props.location.state.access_token,
-      pause: false,
-      play: true,
       username: this.props.location.state.username,
       likedSongs: [],
     };
-    fetch(
-      "http://localhost:8080/api/getLikedSongs?username=" + this.state.username,
-      {
-        method: "GET",
-        headers: {
-          Authorization: this.state.token,
-        },
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        this.setState({ likedSongs: data }, () => {
-          console.log("After fetch in collection");
-          console.log(this.state.likedSongs);
-        });
-      })
-      .catch((error) => console.error("Error:", error));
+    // fetch(
+    //   "http://localhost:8080/api/getLikedSongs?username=" + this.state.username,
+    //   {
+    //     method: "GET",
+    //     headers: {
+    //       Authorization: this.state.token,
+    //     },
+    //   }
+    // )
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     this.setState({ likedSongs: data }, () => {
+    //       console.log("After fetch in collection");
+    //       console.log(this.state.likedSongs);
+    //     });
+    //   })
+    //   .catch((error) => console.error("Error:", error));
   }
   logoOnCLick() {
     this.props.history.push("MainPage", {
@@ -39,6 +38,27 @@ export default class Search extends React.Component {
     });
   }
   render() {
+    const search = (e) => {
+      e.preventDefault();
+      fetch(
+        "http://localhost:8080/api/search?searchParam=" +
+          this.state.searchParam,
+        {
+          method: "GET",
+          headers: {
+            Authorization: this.state.token,
+          },
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          this.setState({ likedSongs: data }, () => {
+            console.log("After fetch in collection");
+            console.log(this.state.likedSongs);
+          });
+        })
+        .catch((error) => console.error("Error:", error));
+    };
     return (
       <div>
         {console.log("In collection")}
@@ -61,6 +81,8 @@ export default class Search extends React.Component {
             }}
             label="Search"
             variant="outlined"
+            value={this.state.searchParam}
+            onChange={(e) => this.setState({ searchParam: e.target.value })}
             style={{ marginTop: "10px" }}
             sx={{
               width: "50ch",
@@ -91,6 +113,7 @@ export default class Search extends React.Component {
           />
           <FaSearch
             style={{ fontSize: "28px", marginLeft: "10px", marginTop: "10px" }}
+            onClick={search}
           />
         </div>
         <div>
