@@ -1,6 +1,8 @@
 import * as React from "react";
 import SidePane from "./SidePane";
 import Button from "@mui/material/Button";
+import {AiFillHeart} from "react-icons/ai";
+import {IoHeartDislikeSharp} from "react-icons/io5";
 
 export default class Artists extends React.Component {
   constructor(props) {
@@ -31,7 +33,27 @@ export default class Artists extends React.Component {
       access_token: this.state.token,
     });
   }
+
   render() {
+    const likeOnClick = (artist, token) => {
+      const formData = new FormData();
+      formData.append("id", artist.id);
+      fetch("http://localhost:8080/api/artist/like", {
+        headers: { Authorization: token },
+        method: "POST",
+        body: formData,
+      }).catch((error) => console.error("Error:", error));
+    };
+
+    const dislikeOnClick = (artist, token) => {
+      const formData = new FormData();
+      formData.append("id", artist.id);
+      fetch("http://localhost:8080/api/artist/dislike", {
+        headers: { Authorization: token },
+        method: "POST",
+        body: formData,
+      }).catch((error) => console.error("Error:", error));
+    };
     const onPressImage = (artistName, username) => {
       this.props.history.push("ArtistPage", {
         access_token: this.state.token,
@@ -61,6 +83,30 @@ export default class Artists extends React.Component {
                       alt="HTML5"
                       style={{ height: "250px", borderRadius: "10px" }}
                       src={artist.pathToImage}
+                    />
+                  </Button>
+                  <Button
+                      sx={{
+                        "&:hover": {
+                          opacity: 0.5,
+                        },
+                      }}
+                  >
+                    <AiFillHeart
+                        style={{ color: "#7f5af0", fontSize: "28px" }}
+                        onClick={() => likeOnClick(artist, this.state.token)}
+                    />
+                  </Button>
+                  <Button
+                      sx={{
+                        "&:hover": {
+                          opacity: 0.5,
+                        },
+                      }}
+                  >
+                    <IoHeartDislikeSharp
+                        style={{ fontSize: "28px", size: "10", color: "white" }}
+                        onClick={() => dislikeOnClick(artist, this.state.token)}
                     />
                   </Button>
                   <h2

@@ -14,7 +14,7 @@ export default class RecommendedPlaylist extends React.Component {
       likedSongs: [],
     };
     fetch(
-      "http://localhost:8080/api/createRandomFavPlaylist?username=" +
+      "http://localhost:8080/api/createDailyPlaylist?username=" +
         this.state.username,
       {
         method: "GET",

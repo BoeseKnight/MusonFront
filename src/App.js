@@ -18,6 +18,7 @@ import Rap from "./components/Rap";
 import RussianRock from "./components/RussianRock";
 import Search from "./components/Search";
 import RecommendedPlaylist from "./components/RecommendedPlaylist";
+import LikedSongsPage from "./components/LikedSongsPage";
 
 function App() {
   const [token, setToken] = useState("");
@@ -40,6 +41,7 @@ function App() {
           <Route path="/russianRock" component={RussianRock} />
           <Route path="/recommendedPlaylist" component={RecommendedPlaylist} />
           <Route path="/search" component={Search} />
+          <Route path="/likedSongsPage" component={LikedSongsPage} />
         </Switch>
       </div>
     </Router>
