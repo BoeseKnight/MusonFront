@@ -39,7 +39,7 @@ export default class RecommendedPlaylist extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div style={{ marginBottom: "100px" }}>
         {console.log("In collection")}
         {console.log(this.state.token)}
         {console.log(this.state.username)}

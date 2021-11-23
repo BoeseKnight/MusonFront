@@ -3,6 +3,7 @@ import SidePane from "./SidePane";
 import GenerateListOfSongs from "./ListOfSongs";
 import TextField from "@mui/material/TextField";
 import { FaSearch } from "react-icons/fa";
+import Button from "@mui/material/Button";
 
 export default class Search extends React.Component {
   constructor(props) {
@@ -14,23 +15,6 @@ export default class Search extends React.Component {
       username: this.props.location.state.username,
       likedSongs: [],
     };
-    // fetch(
-    //   "http://localhost:8080/api/getLikedSongs?username=" + this.state.username,
-    //   {
-    //     method: "GET",
-    //     headers: {
-    //       Authorization: this.state.token,
-    //     },
-    //   }
-    // )
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     this.setState({ likedSongs: data }, () => {
-    //       console.log("After fetch in collection");
-    //       console.log(this.state.likedSongs);
-    //     });
-    //   })
-    //   .catch((error) => console.error("Error:", error));
   }
   logoOnCLick() {
     this.props.history.push("MainPage", {
@@ -60,7 +44,7 @@ export default class Search extends React.Component {
         .catch((error) => console.error("Error:", error));
     };
     return (
-      <div>
+      <div style={{ marginBottom: "100px" }}>
         {console.log("In collection")}
         {console.log(this.state.token)}
         {console.log(this.state.username)}
@@ -111,10 +95,23 @@ export default class Search extends React.Component {
               },
             }}
           />
-          <FaSearch
-            style={{ fontSize: "28px", marginLeft: "10px", marginTop: "10px" }}
-            onClick={search}
-          />
+          <Button
+            sx={{
+              "&:hover": {
+                opacity: 0.5,
+              },
+            }}
+          >
+            <FaSearch
+              style={{
+                fontSize: "28px",
+                marginLeft: "10px",
+                marginTop: "10px",
+                color: "white",
+              }}
+              onClick={search}
+            />
+          </Button>
         </div>
         <div>
           {GenerateListOfSongs(this.state.likedSongs, this.state.token)}

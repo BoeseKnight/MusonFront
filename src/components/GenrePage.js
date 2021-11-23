@@ -29,7 +29,7 @@ export default class GenrePage extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{ marginBottom: "100px" }}>
         <div>{SidePane(this.state.token, this.state.username, this.props)}</div>
         <div>{GenerateListOfSongs(this.state.songs, this.state.token)}</div>
         <div
